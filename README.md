@@ -1,3 +1,1 @@
-#This is our project
-
-## POO
+//generate a readme.md file for the project
