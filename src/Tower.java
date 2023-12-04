@@ -23,7 +23,7 @@ public class Tower {
 
     public void attack(Enemy e) {
         if (cooldownRemaining == 0) {
-            if (Math.abs(e.getX() - x) + Math.abs(e.getY() - y) <= range) {
+            if (Math.sqrt(Math.pow(Math.abs(e.getX() - x) + Math.abs(e.getY() - y),2)) <= range) {
                 e.takeDamage(damage);
                 cooldownRemaining = cooldown;
             }
