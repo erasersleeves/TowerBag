@@ -24,6 +24,10 @@ public class Player {
         health -= damage;
     }
 
+	public int getHealth() {
+		return health;
+	}
+
 
 
 }

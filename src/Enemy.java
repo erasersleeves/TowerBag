@@ -3,6 +3,7 @@ public abstract class Enemy {
     int y;
     int health;
     int speed;
+    Level level;
 
     int damage;
 
@@ -10,12 +11,8 @@ public abstract class Enemy {
     abstract void takeDamage(float damage);
     abstract int getX();
     abstract int getY();
+    abstract void setLevel(Level level);
 
-    /*void inflictDamage(){
-        if (x == base.getX() && y == base.getY()){
-            player.takeDamage(damage);
-        }
-    };*/
-    
+    abstract void inflictDamage();       
     
 }
