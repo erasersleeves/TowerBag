@@ -3,19 +3,27 @@ import java.util.Scanner;
 public class Main {
 
     private static void printArena(Level demo) {
+        System.out.println("Health: " + demo.player.getHealth());
         for (int i = 0; i < demo.height; i++) {
             for (int j = 0; j < demo.width; j++) {
-                boolean enemyFound = false;
-                for (int k = 0; k < demo.enemies.length; k++) {
-                    int y = demo.enemies[k].getY();
-                    int x = demo.enemies[k].getX();
-                    if (x == j && y  == i) {
-                        System.out.print("B ");
-                        enemyFound = true;
-                        break;
+                boolean elementFound = false;
+                // check if there is a tower at the current position
+                if (demo.tower != null) {
+                    if (demo.tower.getX() == j && demo.tower.getY() == i) {
+                        System.out.print("T ");
+                        elementFound = true;
                     }
                 }
-                if (!enemyFound) {
+
+                // check if there is an enemy at the current position
+                if (demo.enemy != null) {
+                    if (demo.enemy.getX() == j && demo.enemy.getY() == i) {
+                        System.out.print("B ");
+                        elementFound = true;
+                    }
+                }
+                // print the arena otherwise
+                if (!elementFound) {
                     // switch case to print out the arena
                     switch (demo.arena[i][j]) {
                         case 0:
@@ -30,6 +38,9 @@ public class Main {
                         case 3:
                             System.out.print("| ");
                             break;
+                        case 4:
+                            System.out.print("T ");
+                            break;
                     }
                 }
 
@@ -40,33 +51,34 @@ public class Main {
 
     public static void main(String[] args) {
         Level demo = new Level("src/arena.txt");
-        demo.enemies = new Enemy[2];
+
         
         // Create and add bats to the enemy array
 
         Bat bat1 = new Bat(0, 0);
         bat1.setLevel(demo);
-        demo.enemies[0] = bat1;
-
-        Bat bat2 = new Bat(0, 4);
-        bat2.setLevel(demo);
-        demo.enemies[1] = bat2;
+        demo.enemy = bat1;
 
         // Rest of the code...
         
         Scanner scanner = new Scanner(System.in);
         int cmd = 0;
 
-        // player creation
+        // tower creation
+//        Tower tower = new Tower(4, 3, 2, 1, 1);
+//        demo.tower = tower;
 
-        while (cmd != 1) {
+        // player creation
+        Player player = new Player(0, 0);
+        demo.player = player;
+
+        while (cmd != 1 && demo.enemy != null) {
+            demo.enemy.advance();
             printArena(demo);
-            for (int i = 0; i < demo.enemies.length; i++) {
-                demo.enemies[i].advance();
-            }
             System.out.println("press 0 to continue, 1 to exit");
             cmd = scanner.nextInt();
         }
+        printArena(demo);
         scanner.close();
     }
 }

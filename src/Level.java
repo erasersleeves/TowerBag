@@ -7,8 +7,8 @@ public class Level {
     int width;
     int bases;
     int[][] arena = new int[height][width];
-    Enemy[] enemies;
-    Tower[] towers;
+    Enemy enemy;
+    Tower tower;
     Player player;
 
     public Level(String filePath) {
@@ -75,12 +75,12 @@ public class Level {
         return arena;
     }
 
-    public Enemy[] getEnemies() {
-        return enemies;
+    public Enemy getEnemy() {
+        return enemy;
     }
 
-    public Tower[] getTowers() {
-        return towers;
+    public Tower getTower() {
+        return tower;
     }
 
     public Player getPlayer() {

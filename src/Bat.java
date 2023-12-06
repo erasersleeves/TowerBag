@@ -5,6 +5,7 @@ public class Bat extends Enemy{
     private int health = 2;
     private final int speed = 1;
     private Level level;
+    private int damage = 1;
 
 
     public Bat(int x, int y) {
@@ -24,18 +25,18 @@ public class Bat extends Enemy{
 
     public void advance() {
         
-        if (x + 1 < level.arena[0].length && level.arena[y][x + 1] == 1) {
+        if (x + 1 < level.arena[0].length && (level.arena[y][x + 1] == 1 || level.arena[y][x + 1] == 3)) {
             //go right
             x += speed;
             goingUp = false;
-        } else if (y + 1 < level.arena.length && level.arena[y + 1][x] == 1 && !goingUp) {
+        } else if (y + 1 < level.arena.length && !goingUp && (level.arena[y + 1][x] == 1 || level.arena[y + 1][x] == 3)) {
             //go down
             y += speed;   
-        } else if (y - 1 >= 0 && level.arena[y - 1][x] == 1) {
+        } else if (y - 1 >= 0 && (level.arena[y - 1][x] == 1 || level.arena[y - 1][x] == 3)) {
             //go up
             y -= speed;
             goingUp = true;
-        } else if (x - 1 >= 0 && level.arena[y][x - 1] == 1) {
+        } else if (x - 1 >= 0 && (level.arena[y][x - 1] == 1 || level.arena[y][x - 1] == 3)) {
             //go left
             x -= speed;
             goingUp = false;
@@ -45,7 +46,11 @@ public class Bat extends Enemy{
 
     @Override
     public void inflictDamage() {
-        if (level.arena[y][x] == 3) level.player.takeDamage(damage); 
+        if (level.arena[y][x] == 3){
+            level.player.takeDamage(damage);
+            //delete bat
+            level.enemy = null;
+        }
     }
 
     @Override

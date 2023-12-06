@@ -5,6 +5,8 @@ public class Tower {
     private float damage;
     private float cooldown;
     private float cooldownRemaining;
+    private Bullet bullet;
+    private boolean isLifted = false;
 
     public Tower(int x, int y, int range, int damage, int cooldown) {
         this.x = x;
