@@ -54,36 +54,50 @@ public class Level {
         }
     }
 
-    public boolean canPlaceTower(int x, int y) {
-        return arena[y][x] == 0;
-    }
+    public void printArena() {
+        System.out.println("Health: " + player.getHealth());
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                boolean elementFound = false;
+                // check if there is a tower at the current position
+                if (tower != null) {
+                    if (tower.getX() == j && tower.getY() == i) {
+                        System.out.print("T ");
+                        elementFound = true;
+                    }
+                }
 
-    //getters for width and height
-    public int getWidth() {
-        return width;
-    }
+                // check if there is an enemy at the current position
+                if (enemy != null) {
+                    if (enemy.getX() == j && enemy.getY() == i) {
+                        System.out.print("B ");
+                        elementFound = true;
+                    }
+                }
+                // print the arena otherwise
+                if (!elementFound) {
+                    // switch case to print out the arena
+                    switch (arena[i][j]) {
+                        case 0:
+                            System.out.print("  ");
+                            break;
+                        case 1:
+                            System.out.print("- ");
+                            break;
+                        case 2:
+                            System.out.print("> ");
+                            break;
+                        case 3:
+                            System.out.print("| ");
+                            break;
+                        case 4:
+                            System.out.print("T ");
+                            break;
+                    }
+                }
 
-    public int getHeight() {
-        return height;
-    }
-
-    public int getBases() {
-        return bases;
-    }
-
-    public int[][] getArena() {
-        return arena;
-    }
-
-    public Enemy getEnemy() {
-        return enemy;
-    }
-
-    public Tower getTower() {
-        return tower;
-    }
-
-    public Player getPlayer() {
-        return player;
+            }
+            System.out.println();
+        }
     }
 }

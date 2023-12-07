@@ -1,54 +1,7 @@
 import java.util.Scanner;
 
 public class Main {
-
-    private static void printArena(Level demo) {
-        System.out.println("Health: " + demo.player.getHealth());
-        for (int i = 0; i < demo.height; i++) {
-            for (int j = 0; j < demo.width; j++) {
-                boolean elementFound = false;
-                // check if there is a tower at the current position
-                if (demo.tower != null) {
-                    if (demo.tower.getX() == j && demo.tower.getY() == i) {
-                        System.out.print("T ");
-                        elementFound = true;
-                    }
-                }
-
-                // check if there is an enemy at the current position
-                if (demo.enemy != null) {
-                    if (demo.enemy.getX() == j && demo.enemy.getY() == i) {
-                        System.out.print("B ");
-                        elementFound = true;
-                    }
-                }
-                // print the arena otherwise
-                if (!elementFound) {
-                    // switch case to print out the arena
-                    switch (demo.arena[i][j]) {
-                        case 0:
-                            System.out.print("  ");
-                            break;
-                        case 1:
-                            System.out.print("- ");
-                            break;
-                        case 2:
-                            System.out.print("> ");
-                            break;
-                        case 3:
-                            System.out.print("| ");
-                            break;
-                        case 4:
-                            System.out.print("T ");
-                            break;
-                    }
-                }
-
-            }
-            System.out.println();
-        }
-    }
-
+    
     public static void main(String[] args) {
         Level demo = new Level("src/arena.txt");
 
@@ -72,13 +25,14 @@ public class Main {
         Player player = new Player(0, 0);
         demo.player = player;
 
+
+        // game loop
         while (cmd != 1 && demo.enemy != null) {
+            demo.printArena();
             demo.enemy.advance();
-            printArena(demo);
             System.out.println("press 0 to continue, 1 to exit");
             cmd = scanner.nextInt();
         }
-        printArena(demo);
         scanner.close();
     }
 }
