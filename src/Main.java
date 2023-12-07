@@ -1,6 +1,8 @@
-import java.util.Scanner;
-
 public class Main {
+    public static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
     
     public static void main(String[] args) {
         Level demo = new Level("src/arena.txt");
@@ -13,12 +15,9 @@ public class Main {
         demo.enemy = bat1;
 
         // Rest of the code...
-        
-        Scanner scanner = new Scanner(System.in);
-        int cmd = 0;
 
         // tower creation
-        Tower tower = new Tower(7, 3, 3, 1, 1);
+        Tower tower = new Tower(7, 6, 3, 1, 1);
         demo.tower = tower;
 
         // player creation
@@ -27,13 +26,16 @@ public class Main {
 
 
         // game loop
-        while (cmd != 1) {
+        while (true) {
+            clearScreen();
             demo.printArena();
             demo.tower.fire();
             if (demo.enemy != null ) demo.enemy.advance();
-            System.out.println("press 0 to continue, 1 to exit");
-            cmd = scanner.nextInt();
+            try {
+                Thread.sleep(1000); // pause for 2 seconds
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-        scanner.close();
     }
 }
