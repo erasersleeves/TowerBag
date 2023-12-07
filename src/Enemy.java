@@ -8,7 +8,7 @@ public abstract class Enemy {
     int damage;
 
     abstract void advance();
-    abstract void takeDamage(float damage);
+    abstract void takeDamage(int damage);
     abstract int getX();
     abstract int getY();
     abstract void setLevel(Level level);

@@ -2,7 +2,7 @@ public class Bat extends Enemy{
     private int x;
     private int y;
     private boolean goingUp = false;
-    private int health = 2;
+    private int health = 1;
     private final int speed = 1;
     private Level level;
     private int damage = 1;
@@ -54,8 +54,9 @@ public class Bat extends Enemy{
     }
 
     @Override
-    public void takeDamage(float damage) {
+    public void takeDamage(int damage) {
         health -= damage;
+        if (health <= 0) {level.enemy = null;}
     }
 
 

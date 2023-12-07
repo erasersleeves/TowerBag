@@ -17,12 +17,12 @@ public class Main {
         // Rest of the code...
 
         // tower creation
-        Tower tower = new Tower(7, 6, 3, 1, 1);
+        Tower tower = new Tower(2, 3, 3, 1, 1);
+        tower.setLevel(demo);
         demo.tower = tower;
 
         // player creation
-        Player player = new Player(0, 0);
-        demo.player = player;
+        demo.player = new Player(0, 0);
 
 
         // game loop
