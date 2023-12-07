@@ -4,10 +4,8 @@ public class Bat extends Enemy{
     private boolean goingUp = false;
     private int health = 1;
     private final int speed = 1;
-    private Level level;
     private int damage = 1;
-
-
+    private Level level;
     public Bat(int x, int y) {
         this.x = x;
         this.y = y;

@@ -59,6 +59,14 @@ public class Level {
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 boolean elementFound = false;
+                // check if there is a player at the current position
+                if (player != null) {
+                    if (player.getX() == j && player.getY() == i) {
+                        System.out.print("P ");
+                        elementFound = true;
+                    }
+                }
+
                 // check if there is a tower at the current position
                 if (tower != null) {
                     if (tower.getX() == j && tower.getY() == i) {

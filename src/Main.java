@@ -22,12 +22,13 @@ public class Main {
         demo.tower = tower;
 
         // player creation
-        demo.player = new Player(0, 0);
+        demo.player = new Player(2, 5);
 
 
         // game loop
         while (true) {
             clearScreen();
+            System.out.println(demo.player.getX() + " " + demo.player.getY());
             demo.printArena();
             demo.tower.fire();
             if (demo.enemy != null ) demo.enemy.advance();
