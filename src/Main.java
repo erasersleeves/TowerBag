@@ -18,8 +18,8 @@ public class Main {
         int cmd = 0;
 
         // tower creation
-//        Tower tower = new Tower(4, 3, 2, 1, 1);
-//        demo.tower = tower;
+        Tower tower = new Tower(7, 3, 3, 1, 1);
+        demo.tower = tower;
 
         // player creation
         Player player = new Player(0, 0);
@@ -27,9 +27,10 @@ public class Main {
 
 
         // game loop
-        while (cmd != 1 && demo.enemy != null) {
+        while (cmd != 1) {
             demo.printArena();
-            demo.enemy.advance();
+            demo.tower.fire();
+            if (demo.enemy != null ) demo.enemy.advance();
             System.out.println("press 0 to continue, 1 to exit");
             cmd = scanner.nextInt();
         }

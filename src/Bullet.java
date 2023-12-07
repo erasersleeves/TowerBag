@@ -14,24 +14,8 @@ public class Bullet {
     }
 
     public void advance() {
-
-            if (Math.sqrt(Math.pow(Math.abs(target.getX() - x) + Math.abs(target.getY() - y),2)) <= speed) {
-                target.takeDamage(damage);
-            } else {
-                if (target.getX() > x) {
-                    x += speed;
-                } else if (target.getX() < x) {
-                    x -= speed;
-                }
-                if (target.getY() > y) {
-                    y += speed;
-                } else if (target.getY() < y) {
-                    y -= speed;
-                }
-            }
+        y -= speed;
     }
-
-
     public int getX() {
         return x;
     }

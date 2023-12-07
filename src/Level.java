@@ -64,6 +64,9 @@ public class Level {
                     if (tower.getX() == j && tower.getY() == i) {
                         System.out.print("T ");
                         elementFound = true;
+                    } else if (tower.getBullet() != null && tower.getBullet().getX() == j && tower.getBullet().getY() == i) {
+                        System.out.print(". ");
+                        elementFound = true;
                     }
                 }
 

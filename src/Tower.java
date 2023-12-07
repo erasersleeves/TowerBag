@@ -17,19 +17,15 @@ public class Tower {
         this.cooldownRemaining = 0;
     }
 
-    public void advance() {
-        if (cooldownRemaining > 0) {
-            cooldownRemaining--;
-        }
+    public void fire() {
+        if (bullet == null || disTowBull() > range) bullet = new Bullet(x, y, 1, damage, null);
+        bullet.advance();
     }
 
-    public void attack(Enemy e) {
-        if (cooldownRemaining == 0) {
-            if (Math.sqrt(Math.pow(Math.abs(e.getX() - x) + Math.abs(e.getY() - y),2)) <= range) {
-                e.takeDamage(damage);
-                cooldownRemaining = cooldown;
-            }
-        }
+    private int disTowBull() {
+        // return distance between x and y of tower and bullet
+        return Math.abs(bullet.getY()-y);
+
     }
 
     public int getX() {
@@ -38,5 +34,9 @@ public class Tower {
 
     public int getY() {
         return y;
+    }
+
+    public Bullet getBullet() {
+        return bullet;
     }
 }
