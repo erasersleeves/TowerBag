@@ -25,6 +25,8 @@ public class Main {
         // player creation
         demo.setPlayer(new Player(2, 5));
 
+        Window window = new Window();
+
 
         // game loop
         while (true) {
