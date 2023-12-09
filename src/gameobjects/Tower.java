@@ -1,4 +1,8 @@
-public class Tower {
+package gameobjects;
+import world.Level;
+
+
+public class Tower extends GameObject{
     private int x;
     private int y;
     private int range;
@@ -7,7 +11,7 @@ public class Tower {
     private float cooldownRemaining;
     private Bullet bullet;
 
-    private Level level;
+    private Level level = Level.getInstance();
 
     private boolean isLifted = false;
     public Tower(int x, int y, int range, int damage, int cooldown) {
@@ -24,11 +28,11 @@ public class Tower {
     }
 
     public void fire() {
-        if (bullet == null || disTowBull() > range) bullet = new Bullet(x, y, 1, damage, level.enemy);
+        if (bullet == null || disTowBull() > range) bullet = new Bullet(x, y, 1, damage, level.getEnemy());
         bullet.advance();
-        if (level.enemy != null && bullet.getX() == bullet.getTarget().getX() && bullet.getY() == bullet.getTarget().getY()) {
+        if (level.getEnemy() != null && bullet.getX() == bullet.getTarget().getX() && bullet.getY() == bullet.getTarget().getY()) {
             bullet.getTarget().takeDamage(damage);
-            bullet = new Bullet(x, y, 1, damage, level.enemy);
+            bullet = new Bullet(x, y, 1, damage, level.getEnemy());
         }
     }
 

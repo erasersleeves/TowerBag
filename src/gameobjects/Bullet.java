@@ -1,9 +1,12 @@
-public class Bullet {
+package gameobjects;
+import world.Level;
+
+public class Bullet extends GameObject{
     private int x;
     private int y;
     private int speed;
     private int damage;
-    private Level level;
+    private Level level = Level.getInstance();
     private Enemy target;
 
     public Bullet(int x, int y, int speed, int damage, Enemy target) {

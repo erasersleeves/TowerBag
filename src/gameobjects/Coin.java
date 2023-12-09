@@ -1,4 +1,7 @@
-public class Coin {
+package gameobjects;
+import world.Level;
+
+public class Coin extends GameObject{
     private int x;
     private int y;
     private int value;

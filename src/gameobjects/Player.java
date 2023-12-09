@@ -1,14 +1,17 @@
+package gameobjects;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import world.Level;
 
-public class Player implements KeyListener{
+public class Player extends GameObject implements KeyListener {
     private int health = 5;
     private int money = 0;
     private int score = 0;
     public int speed = 1;
     private int x ;
     private int y ;
-    private Level level;
+    private Level level = Level.getInstance();
 
     public Player(int x, int y) {
         this.x = x;

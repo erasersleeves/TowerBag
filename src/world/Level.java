@@ -1,18 +1,96 @@
+package world;
+
+import gameobjects.Enemy;
+import gameobjects.Player;
+import gameobjects.Tower;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
 public class Level {
-    int height;
-    int width;
-    int bases;
-    int[][] arena = new int[height][width];
-    Enemy enemy;
-    Tower tower;
-    Player player;
+    private int height;
+    private int width;
+    private int bases;
+    private int[][] arena = new int[height][width];
+    private Enemy enemy;
+    private Tower tower;
+    private Player player;
+    private static Level instance = null;
 
-    public Level(String filePath) {
+    private Level(String filePath) {
         loadArena(filePath);
+    }
+
+    public static Level getInstance(String filePath) {
+        if (instance == null) {
+            instance = new Level(filePath);
+        }
+        return instance;
+    }
+
+    public static Level getInstance() {
+        return instance;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getBases() {
+        return bases;
+    }
+
+    public void setBases(int bases) {
+        this.bases = bases;
+    }
+
+    public int[][] getArena() {
+        return arena;
+    }
+
+    public void setArena(int[][] arena) {
+        this.arena = arena;
+    }
+
+    public Enemy getEnemy() {
+        return enemy;
+    }
+
+    public void setEnemy(Enemy enemy) {
+        this.enemy = enemy;
+    }
+
+    public Tower getTower() {
+        return tower;
+    }
+
+    public void setTower(Tower tower) {
+        this.tower = tower;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public static void setInstance(Level instance) {
+        Level.instance = instance;
     }
 
     //set width and height to the file dimensions
