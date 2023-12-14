@@ -49,14 +49,14 @@ public class Trunk extends Enemy {
         if (level.getArena()[y][x] == 3){
             level.getPlayer().takeDamage(damage);
             //delete Trunk
-            level.setEnemy(null);
+            level.killEnemy(this);
         }
     }
 
     @Override
     public void takeDamage(int damage) {
         health -= damage;
-        if (health <= 0) {level.setEnemy(null);}
+        if (health <= 0) {level.killEnemy(this);}
     }
 
 

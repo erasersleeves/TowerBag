@@ -28,11 +28,12 @@ public class Tower extends GameObject{
     }
 
     public void fire() {
-        if (bullet == null || disTowBull() > range) bullet = new Bullet(x, y, 1, damage, level.getEnemy());
+        if (bullet == null || disTowBull() > range) bullet = new Bullet(x, y, 1, damage,null);
         bullet.advance();
-        if (level.getEnemy() != null && bullet.getX() == bullet.getTarget().getX() && bullet.getY() == bullet.getTarget().getY()) {
-            bullet.getTarget().takeDamage(damage);
-            bullet = new Bullet(x, y, 1, damage, level.getEnemy());
+        Enemy e = level.getEnemyWave().isEnemyHere(bullet.getX(),bullet.getY()); // getting the enemy with the same position as the bullet
+        if (level.getEnemyWave().getEnemyList().size() != 0 && e != null) {
+            e.takeDamage(damage);
+            bullet = new Bullet(x, y, 1, damage,e);
         }
     }
 

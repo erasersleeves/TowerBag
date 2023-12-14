@@ -1,5 +1,6 @@
 package world;
 
+import gameobjects.Bat;
 import gameobjects.Enemy;
 import gameobjects.Player;
 import gameobjects.Tower;
@@ -7,13 +8,18 @@ import gameobjects.Tower;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+
+import events.Wave;
+import events.WaveManager;
 
 public class Level {
     private int height;
     private int width;
     private int bases;
     private int[][] arena = new int[height][width];
-    private Enemy enemy;
+    private WaveManager WaveManag;
+    private Wave enemyWave;
     private Tower tower;
     private Player player;
     private static Level instance = null;
@@ -65,12 +71,16 @@ public class Level {
         this.arena = arena;
     }
 
-    public Enemy getEnemy() {
-        return enemy;
+    public void creatWaveM(){
+        WaveManag = new WaveManager();
     }
 
-    public void setEnemy(Enemy enemy) {
-        this.enemy = enemy;
+    public void setNextEWave(){
+        enemyWave = WaveManag.NextWave();
+    }
+
+    public Wave getEnemyWave(){ 
+        return enemyWave;
     }
 
     public Tower getTower() {
@@ -157,9 +167,9 @@ public class Level {
                 }
 
                 // check if there is an enemy at the current position
-                if (enemy != null) {
-                    if (enemy.getX() == j && enemy.getY() == i) {
-                        System.out.print("B ");
+                if (enemyWave.getEnemyList().size() != 0) {
+                    if (enemyWave.isEnemyHere(j, i) != null) {
+                        System.out.print("E ");
                         elementFound = true;
                     }
                 }
@@ -188,5 +198,9 @@ public class Level {
             }
             System.out.println();
         }
+    }
+
+    public void killEnemy(Enemy e){
+        enemyWave.getEnemyList().remove(e);
     }
 }

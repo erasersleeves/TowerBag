@@ -11,11 +11,13 @@ public class Main {
     
     public static void main(String[] args) {
         // level creation
-        Level demo = Level.getInstance("resources/arena.txt");
+        Level demo = Level.getInstance("../resources/arena.txt");
 
-        
-        // Create and add bats to the enemy array
-        demo.setEnemy(new Bat(0, 0));
+        // Creating the Predefined Waves
+        demo.creatWaveM();
+
+        // Setting next wave.
+        demo.setNextEWave();
 
         // Rest of the code...
 
@@ -32,7 +34,7 @@ public class Main {
             System.out.println(demo.getPlayer().getX() + " " + demo.getPlayer().getY());
             demo.printArena();
             demo.getTower().fire();
-            if (demo.getEnemy() != null ) demo.getEnemy().advance();
+            if (demo.getEnemyWave().getEnemyList().size() !=0 ) demo.getEnemyWave().advance();
             try {
                 Thread.sleep(1000); // pause for 2 seconds
             } catch (InterruptedException e) {
