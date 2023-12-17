@@ -3,6 +3,8 @@ import gameobjects.Player;
 import gameobjects.Tower;
 import world.Level;
 
+import javax.swing.*;
+
 public class Main {
     public static void clearScreen() {
         System.out.print("\033[H\033[2J");
@@ -17,7 +19,6 @@ public class Main {
         // Create and add bats to the enemy array
         demo.setEnemy(new Bat(0, 0));
 
-        // Rest of the code...
 
         // tower creation
         demo.setTower(new Tower(2, 3, 3, 1, 1));
@@ -25,7 +26,11 @@ public class Main {
         // player creation
         demo.setPlayer(new Player(2, 5));
 
-        Window window = new Window();
+        JFrame window = new JFrame("Tower Defense");
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setContentPane(new GamePanel());
+        window.pack();
+        window.setVisible(true);
 
 
         // game loop
