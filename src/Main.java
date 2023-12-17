@@ -24,13 +24,18 @@ public class Main {
         demo.setTower(new Tower(2, 3, 3, 1, 1));
 
         // player creation
-        demo.setPlayer(new Player(2, 5));
+        demo.setPlayer(Player.getInstance());
 
         JFrame window = new JFrame("Tower Defense");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setContentPane(new GamePanel());
+        GamePanel gp = new GamePanel();
+        window.setContentPane(gp);
+        window.setResizable(false);
         window.pack();
         window.setVisible(true);
+        gp.startGame();
+
+
 
 
         // game loop

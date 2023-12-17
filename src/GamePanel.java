@@ -1,6 +1,6 @@
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
 import world.Level;
 
 import java.awt.*;
@@ -10,15 +10,16 @@ import java.io.IOException;
 
 
 public class GamePanel extends JPanel implements Runnable {
+    int FPS = 60;
+    Thread gameThread = new Thread(this);
+    KeyHandler KeyH = new KeyHandler();
     public GamePanel() {
-
-        int scale = 32;
-
-        setSize(Level.getInstance().getWidth() * scale, Level.getInstance().getHeight() * scale);
+        int tileSize = 32;
+        int scale = 2;
+        setPreferredSize(new Dimension(tileSize * scale * Level.getInstance().getArena()[0].length, tileSize * scale * Level.getInstance().getArena().length));
         setVisible(true);
-
-
-        // Read the arena.txt file
+        addKeyListener(KeyH);
+        setFocusable(true);
 
         // Create a JPanel
         JPanel background = new JPanel();
@@ -51,9 +52,32 @@ public class GamePanel extends JPanel implements Runnable {
 
     }
 
+    public void startGame() {
+        Thread gameThread = new Thread(this);
+        gameThread.start();
+    }
+
+    public void update() {
+
+    }
+
     @Override
     public void run() {
         // game loop
+        double drawInterval = 1000000000.0 / FPS;
+        double nextDrawTime = System.nanoTime() + drawInterval;
+        while (gameThread != null) {
+            update();
+            repaint();
+            double delta = nextDrawTime - System.nanoTime();
+            if (delta > 0) {
+                try {
+                    Thread.sleep((long) (delta / 1000000));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
 
+        }
     }
 }

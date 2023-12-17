@@ -1,10 +1,11 @@
 package gameobjects;
 
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import world.Level;
 
-public class Player extends GameObject implements KeyListener {
+public class Player extends GameObject {
+
+    private static Player instance = null;
     private int health = 5;
     private int money = 0;
     private int score = 0;
@@ -13,40 +14,17 @@ public class Player extends GameObject implements KeyListener {
     private int y ;
     private Level level = Level.getInstance();
 
-    public Player(int x, int y) {
-        this.x = x;
-        this.y = y;
+    private Player() {
+        this.x = 0;
+        this.y = 0;
     }
 
-    // key listener for player movement using WASD
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        switch (e.getKeyCode()) {
-            case KeyEvent.VK_W:
-                y -= speed;
-                break;
-            case KeyEvent.VK_S:
-                y += speed;
-                break;
-            case KeyEvent.VK_A:
-                x -= speed;
-                break;
-            case KeyEvent.VK_D:
-                x += speed;
-                break;
+    public static Player getInstance() {
+        if (instance == null) {
+            instance = new Player();
         }
+        return instance;
     }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
-    }
-
 
     //getters for x and y
     public int getX() {
@@ -57,6 +35,14 @@ public class Player extends GameObject implements KeyListener {
         return y;
     }
 
+    //setters for x and y
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
     public void takeDamage(float damage) {
         health -= damage;
     }
