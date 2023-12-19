@@ -1,6 +1,9 @@
+package main;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import gameobjects.Player;
 import world.Level;
 
 import java.awt.*;
@@ -12,20 +15,46 @@ import java.io.IOException;
 public class GamePanel extends JPanel implements Runnable {
     int FPS = 60;
     Thread gameThread = new Thread(this);
-    KeyHandler KeyH = new KeyHandler();
-    public GamePanel() {
-        int tileSize = 32;
-        int scale = 2;
+    Player player = Level.getInstance().getPlayer();
+    int tileSize = 32;
+    int scale = 1;
+
+
+    KeyHandler keyH = new KeyHandler(player);
+    public static GamePanel instance = null;
+    private GamePanel() {
         setPreferredSize(new Dimension(tileSize * scale * Level.getInstance().getArena()[0].length, tileSize * scale * Level.getInstance().getArena().length));
         setVisible(true);
-        addKeyListener(KeyH);
+        addKeyListener(keyH);
         setFocusable(true);
 
-        // Create a JPanel
-        JPanel background = new JPanel();
-        int[][] arena = Level.getInstance().getArena();
-        background.setLayout(new GridLayout(arena.length, arena[0].length));
 
+
+    }
+
+    public static GamePanel getInstance() {
+        if (instance == null) {
+            instance = new GamePanel();
+        }
+        return instance;
+    }
+    public void startGame() {
+        Thread gameThread = new Thread(this);
+        gameThread.start();
+    }
+
+    public void update() {
+
+    }
+
+
+   @Override
+   protected void paintComponent(Graphics g) {
+    super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D)g;
+
+        // Draw the background
+        int[][] arena = Level.getInstance().getArena();
         BufferedImage[] tiles = new BufferedImage[4]; // Assuming 4 different tiles
         try {
             tiles[0] = ImageIO.read(new File("resources/grass1.png"));
@@ -37,30 +66,17 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
         // Iterate over the 2D array
-        for (int[] row : arena) {
-            for (int cell : row) {
-                // Create a JLabel with an ImageIcon
-                JLabel label = new JLabel(new ImageIcon(tiles[cell]));
-
-                // Add the JLabel to the JPanel
-                background.add(label);
+        for (int i = 0; i < arena.length; i++) {
+            for (int j = 0; j < arena[i].length; j++) {
+                g2d.drawImage(tiles[arena[i][j]], j * tileSize * scale, i * tileSize * scale, tileSize * scale, tileSize * scale, this);
             }
         }
 
-        // Add the JPanel to the JFrame
-        add(background);
-
+        // Draw the player
+        if (player != null) {
+            g2d.drawImage(player.getImage(), player.getX() * tileSize * scale, player.getY() * tileSize * scale, tileSize * scale, tileSize * scale, this);
+        }
     }
-
-    public void startGame() {
-        Thread gameThread = new Thread(this);
-        gameThread.start();
-    }
-
-    public void update() {
-
-    }
-
     @Override
     public void run() {
         // game loop

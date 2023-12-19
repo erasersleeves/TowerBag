@@ -1,11 +1,19 @@
 package gameobjects;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import main.GamePanel;
+import main.KeyHandler;
 import world.Level;
 
-public class Player extends GameObject {
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
-    private static Player instance = null;
+public class Player extends GameObject {
     private int health = 5;
     private int money = 0;
     private int score = 0;
@@ -14,17 +22,13 @@ public class Player extends GameObject {
     private int y ;
     private Level level = Level.getInstance();
 
-    private Player() {
+
+    public Player() {
         this.x = 0;
         this.y = 0;
+
     }
 
-    public static Player getInstance() {
-        if (instance == null) {
-            instance = new Player();
-        }
-        return instance;
-    }
 
     //getters for x and y
     public int getX() {
@@ -52,5 +56,14 @@ public class Player extends GameObject {
 	}
 
 
-
+    public Image getImage() {
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File("resources/player.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Image scaledImg = img.getSubimage(0, 0, 16, 16).getScaledInstance(32, 32, Image.SCALE_SMOOTH);
+        return scaledImg;
+    }
 }
