@@ -23,7 +23,7 @@ public class Main {
 
 
         // tower creation
-        demo.setTower(new Tower(2, 3, 3, 1, 1));
+        demo.setTower(new Tower(4, 4, 3, 1, 1));
 
         // player creation
 

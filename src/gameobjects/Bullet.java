@@ -1,6 +1,12 @@
 package gameobjects;
 import world.Level;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
 public class Bullet extends GameObject{
     private int x;
     private int y;
@@ -30,5 +36,16 @@ public class Bullet extends GameObject{
 
     public Enemy getTarget() {
         return target;
+    }
+
+    public Image getImage() {
+        //return bullet.png scaled by 2
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File("resources/bullet.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return img;
     }
 }

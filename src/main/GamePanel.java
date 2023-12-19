@@ -3,7 +3,7 @@ package main;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import gameobjects.Player;
+import gameobjects.*;
 import world.Level;
 
 import java.awt.*;
@@ -76,6 +76,28 @@ public class GamePanel extends JPanel implements Runnable {
         if (player != null) {
             g2d.drawImage(player.getImage(), player.getX() * tileSize * scale, player.getY() * tileSize * scale, tileSize * scale, tileSize * scale, this);
         }
+
+        // Draw the enemy
+       Bat enemy = (Bat) Level.getInstance().getEnemy();
+       if (enemy != null) {
+           g2d.drawImage(enemy.getImage(), enemy.getX() * tileSize * scale, enemy.getY() * tileSize * scale, tileSize * scale, tileSize * scale, this);
+       }
+
+       // Draw the tower
+       Tower tower = Level.getInstance().getTower();
+       if (tower != null) {
+           g2d.drawImage(tower.getImage(), tower.getX() * tileSize * scale, (tower.getY() - 1) * tileSize * scale, tileSize * scale, tileSize * scale * 2, this);
+       }
+
+       // Draw the bullet
+
+       Bullet bullet = Level.getInstance().getTower().getBullet();
+       if (bullet != null) {
+           Image bulletImage = bullet.getImage();
+           int bulletX = bullet.getX() * tileSize * scale + tileSize * scale / 2 - bulletImage.getWidth(null) / 2;
+           int bulletY = bullet.getY() * tileSize * scale + tileSize * scale / 2 - bulletImage.getHeight(null) / 2;
+           g2d.drawImage(bulletImage, bulletX, bulletY, bulletImage.getWidth(null), bulletImage.getHeight(null), this);
+       }
     }
     @Override
     public void run() {

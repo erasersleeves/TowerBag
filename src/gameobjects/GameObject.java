@@ -1,8 +1,11 @@
 package gameobjects;
 
+import java.awt.*;
+
 public abstract class GameObject {
     protected int x;
     protected int y;
+
 
     public int getX() {
         return x;
@@ -11,5 +14,6 @@ public abstract class GameObject {
     public int getY() {
         return y;
     }
+
 
 }
