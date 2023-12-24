@@ -20,6 +20,7 @@ public class Tower extends GameObject{
     private Level level = Level.getInstance();
 
     private boolean isLifted = false;
+
     public Tower(int x, int y, int range, int damage, int cooldown) {
         this.x = x;
         this.y = y;
@@ -60,6 +61,14 @@ public class Tower extends GameObject{
         return bullet;
     }
 
+    public void lift() {
+        isLifted = true;
+    }
+
+    public void drop() {
+        isLifted = false;
+    }
+
     public Image getImage() {
         BufferedImage img = null;
         try {
@@ -68,5 +77,17 @@ public class Tower extends GameObject{
             e.printStackTrace();
         }
         return img;
+    }
+
+    public boolean isLifted() {
+        return isLifted;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public void setX(int x) {
+        this.x = x;
     }
 }

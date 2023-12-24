@@ -55,6 +55,10 @@ public class Player extends GameObject {
 		return health;
 	}
 
+    public boolean reaches(Tower tower) {
+        return (tower.getX() == x && tower.getY() == y);
+    }
+
 
     public Image getImage() {
         BufferedImage img = null;

@@ -2,12 +2,13 @@ package main;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import gameobjects.Player;
+import gameobjects.*;
 import world.Level;
 
 public class KeyHandler implements KeyListener {
     // key listener for player movement using WASD
     Player player;
+    Tower tower = Level.getInstance().getTower();
 
     public KeyHandler(Player player) {
         this.player = player;
@@ -25,24 +26,43 @@ public class KeyHandler implements KeyListener {
                     break;
                 }
                 player.setY(player.getY()-1);
+                if (tower.isLifted()) {
+                    tower.setY(tower.getY()-1);
+                }
                 break;
             case KeyEvent.VK_S:
                 if (Level.getInstance().isSolid(player.getX(), player.getY()+1)) {
                     break;
                 }
                 player.setY(player.getY()+1);
+                if (tower.isLifted()) {
+                    tower.setY(tower.getY()+1);
+                }
                 break;
             case KeyEvent.VK_A:
                 if (Level.getInstance().isSolid(player.getX()-1, player.getY())) {
                     break;
                 }
                 player.setX(player.getX()-1);
+                if (tower.isLifted()) {
+                    tower.setX(tower.getX()-1);
+                }
                 break;
             case KeyEvent.VK_D:
                 if (Level.getInstance().isSolid(player.getX()+1, player.getY())) {
                     break;
                 }
                 player.setX(player.getX()+1);
+                if (tower.isLifted()) {
+                    tower.setX(tower.getX()+1);
+                }
+                break;
+            case KeyEvent.VK_SPACE:
+                if (player.reaches(tower) && !tower.isLifted()) {
+                    tower.lift();
+                } else if (tower.isLifted()) {
+                    tower.drop();
+                }
                 break;
             default:
                 break;
