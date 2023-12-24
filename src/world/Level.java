@@ -189,4 +189,8 @@ public class Level {
             System.out.println();
         }
     }
+
+    public boolean isSolid(int x, int y) {
+        return (arena[y][x] == 1 || arena[y][x] == 3 || arena[y][x] == 4);
+    }
 }

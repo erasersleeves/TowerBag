@@ -21,15 +21,27 @@ public class KeyHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W:
+                if (Level.getInstance().isSolid(player.getX(), player.getY()-1)) {
+                    break;
+                }
                 player.setY(player.getY()-1);
                 break;
             case KeyEvent.VK_S:
+                if (Level.getInstance().isSolid(player.getX(), player.getY()+1)) {
+                    break;
+                }
                 player.setY(player.getY()+1);
                 break;
             case KeyEvent.VK_A:
+                if (Level.getInstance().isSolid(player.getX()-1, player.getY())) {
+                    break;
+                }
                 player.setX(player.getX()-1);
                 break;
             case KeyEvent.VK_D:
+                if (Level.getInstance().isSolid(player.getX()+1, player.getY())) {
+                    break;
+                }
                 player.setX(player.getX()+1);
                 break;
             default:
