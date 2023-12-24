@@ -1,6 +1,12 @@
 package gameobjects;
 import world.Level;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
 public class Bat extends Enemy {
     private int x;
     private int y;
@@ -8,6 +14,8 @@ public class Bat extends Enemy {
     private int health = 1;
     private final int speed = 1;
     private int damage = 1;
+
+    private Level level = Level.getInstance();
     public Bat(int x, int y) {
         this.x = x;
         this.y = y;
@@ -66,6 +74,18 @@ public class Bat extends Enemy {
 
     public int getSpeed() {
         return speed;
+    }
+
+
+    public Image getImage() {
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File("resources/bat.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Image scaledImg = img.getSubimage(0, 0, 16, 16).getScaledInstance(32, 32, Image.SCALE_SMOOTH);
+        return scaledImg;
     }
 
     @Override

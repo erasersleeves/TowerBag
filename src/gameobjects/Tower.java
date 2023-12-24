@@ -1,6 +1,12 @@
 package gameobjects;
 import world.Level;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
 
 public class Tower extends GameObject{
     private int x;
@@ -52,5 +58,15 @@ public class Tower extends GameObject{
 
     public Bullet getBullet() {
         return bullet;
+    }
+
+    public Image getImage() {
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File("resources/tower.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return img;
     }
 }

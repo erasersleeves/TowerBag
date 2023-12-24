@@ -1,6 +1,8 @@
 package gameobjects;
 import world.Level;
 
+import java.awt.*;
+
 public abstract class Enemy extends GameObject {
     int x;
     int y;
@@ -16,6 +18,6 @@ public abstract class Enemy extends GameObject {
     public abstract int getY();
     abstract void setLevel(Level level);
 
-    abstract void inflictDamage();       
+    abstract void inflictDamage();
     
 }
