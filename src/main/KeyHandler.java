@@ -10,6 +10,8 @@ public class KeyHandler implements KeyListener {
     Player player;
     Tower tower = Level.getInstance().getTower();
 
+    int tileSize = Level.getInstance().tileSize;
+
     public KeyHandler(Player player) {
         this.player = player;
     }
@@ -22,39 +24,39 @@ public class KeyHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W:
-                if (Level.getInstance().isSolid(player.getX(), player.getY()-1)) {
+                if (Level.getInstance().isSolid(player.getX()/tileSize, (player.getY()- player.speed)/tileSize)) {
                     break;
                 }
-                player.setY(player.getY()-1);
+                player.setY(player.getY()-player.speed);
                 if (tower.isLifted()) {
-                    tower.setY(tower.getY()-1);
+                    tower.setY(tower.getY()-player.speed);
                 }
                 break;
             case KeyEvent.VK_S:
-                if (Level.getInstance().isSolid(player.getX(), player.getY()+1)) {
+                if (Level.getInstance().isSolid(player.getX()/tileSize, (player.getY()+player.speed)/tileSize)) {
                     break;
                 }
-                player.setY(player.getY()+1);
+                player.setY(player.getY()+player.speed);
                 if (tower.isLifted()) {
-                    tower.setY(tower.getY()+1);
+                    tower.setY(tower.getY()+player.speed);
                 }
                 break;
             case KeyEvent.VK_A:
-                if (Level.getInstance().isSolid(player.getX()-1, player.getY())) {
+                if (Level.getInstance().isSolid((player.getX()-player.speed)/tileSize, player.getY()/tileSize)) {
                     break;
                 }
-                player.setX(player.getX()-1);
+                player.setX(player.getX()-player.speed);
                 if (tower.isLifted()) {
-                    tower.setX(tower.getX()-1);
+                    tower.setX(tower.getX()-player.speed);
                 }
                 break;
             case KeyEvent.VK_D:
-                if (Level.getInstance().isSolid(player.getX()+1, player.getY())) {
+                if (Level.getInstance().isSolid((player.getX()+player.speed)/tileSize, player.getY()/tileSize)) {
                     break;
                 }
-                player.setX(player.getX()+1);
+                player.setX(player.getX()+player.speed);
                 if (tower.isLifted()) {
-                    tower.setX(tower.getX()+1);
+                    tower.setX(tower.getX()+player.speed);
                 }
                 break;
             case KeyEvent.VK_SPACE:

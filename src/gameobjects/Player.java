@@ -17,7 +17,7 @@ public class Player extends GameObject {
     private int health = 5;
     private int money = 0;
     private int score = 0;
-    public int speed = 1;
+    public int speed = 4;
     private int x ;
     private int y ;
     private Level level = Level.getInstance();

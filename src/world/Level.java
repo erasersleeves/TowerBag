@@ -18,6 +18,8 @@ public class Level {
     private Player player;
     private static Level instance = null;
 
+    public int tileSize = 16;
+
     private Level(String filePath) {
         loadArena(filePath);
     }
@@ -139,7 +141,7 @@ public class Level {
                 boolean elementFound = false;
                 // check if there is a player at the current position
                 if (player != null) {
-                    if (player.getX() == j && player.getY() == i) {
+                    if (player.getX()/tileSize == j && player.getY()/tileSize == i) {
                         System.out.print("P ");
                         elementFound = true;
                     }

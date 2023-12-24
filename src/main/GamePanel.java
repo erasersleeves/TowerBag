@@ -16,8 +16,8 @@ public class GamePanel extends JPanel implements Runnable {
     int FPS = 60;
     Thread gameThread = new Thread(this);
     Player player = Level.getInstance().getPlayer();
-    int tileSize = 32;
-    int scale = 1;
+    int tileSize = 16;
+    int scale = 3;
 
 
     KeyHandler keyH = new KeyHandler(player);
@@ -74,7 +74,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         // Draw the player
         if (player != null) {
-            g2d.drawImage(player.getImage(), player.getX() * tileSize * scale, player.getY() * tileSize * scale, tileSize * scale, tileSize * scale, this);
+            g2d.drawImage(player.getImage(), player.getX() * scale, player.getY() * scale, tileSize * scale, tileSize * scale, this);
         }
 
         // Draw the enemy
