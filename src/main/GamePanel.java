@@ -57,12 +57,14 @@ public class GamePanel extends JPanel implements Runnable {
 
         // Draw the background
         int[][] arena = Level.getInstance().getArena();
-        BufferedImage[] tiles = new BufferedImage[4]; // Assuming 4 different tiles
+        BufferedImage[] tiles = new BufferedImage[10]; // Assuming 4 different tiles
         try {
             tiles[0] = ImageIO.read(new File("resources/grass1.png"));
             tiles[1] = ImageIO.read(new File("resources/path1.png"));
-            tiles[2] = ImageIO.read(new File("resources/base.png"));
-            tiles[3] = ImageIO.read(new File("resources/base.png"));
+            tiles[2] = ImageIO.read(new File("resources/path1.png"));
+            tiles[3] = ImageIO.read(new File("resources/path1.png"));
+            tiles[4] = ImageIO.read(new File("resources/grass1.png"));
+
         } catch (IOException e) {
             e.printStackTrace();
         }

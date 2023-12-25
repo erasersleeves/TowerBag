@@ -16,9 +16,18 @@ public class Bat extends Enemy {
     private int damage = 1;
 
     private Level level = Level.getInstance();
-    public Bat(int x, int y) {
-        this.x = x;
-        this.y = y;
+
+    public Bat() {
+        // spawn at arena tile that is equal to 2
+        for (int i = 0; i < level.getArena().length; i++) {
+            for (int j = 0; j < level.getArena()[0].length; j++) {
+                if (level.getArena()[i][j] == 2) {
+                    x = j;
+                    y = i;
+                }
+            }
+        }
+
     }
 
     @Override

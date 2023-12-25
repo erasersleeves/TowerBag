@@ -21,13 +21,20 @@ public class Tower extends GameObject{
 
     private boolean isLifted = false;
 
-    public Tower(int x, int y, int range, int damage, int cooldown) {
-        this.x = x;
-        this.y = y;
-        this.range = range;
-        this.damage = damage;
-        this.cooldown = cooldown;
+    public Tower() {
+        this.range = 3;
+        this.damage = 1;
+        this.cooldown = 2;
         this.cooldownRemaining = 0;
+        // spawn at arena tile that is equal to 4
+        for (int i = 0; i < level.getArena().length; i++) {
+            for (int j = 0; j < level.getArena()[0].length; j++) {
+                if (level.getArena()[i][j] == 4) {
+                    x = j;
+                    y = i;
+                }
+            }
+        }
     }
 
     public void setLevel(Level level) {

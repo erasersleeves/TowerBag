@@ -16,11 +16,11 @@ public class Main {
 
         
         // Create and add bats to the enemy array
-        demo.setEnemy(new Bat(0, 0));
+        demo.setEnemy(new Bat());
 
 
         // tower creation
-        demo.setTower(new Tower(4, 4, 3, 1, 1));
+        demo.setTower(new Tower());
 
         // player creation
 

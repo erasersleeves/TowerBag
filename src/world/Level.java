@@ -11,7 +11,6 @@ import java.io.IOException;
 public class Level {
     private int height;
     private int width;
-    private int bases;
     private int[][] arena = new int[height][width];
     private Enemy enemy;
     private Tower tower;
@@ -113,6 +112,6 @@ public class Level {
 
 
     public boolean isSolid(int x, int y) {
-        return (arena[y][x] == 1 || arena[y][x] == 3 || arena[y][x] == 4);
+        return (arena[y][x] == 1 || arena[y][x] == 3);
     }
 }

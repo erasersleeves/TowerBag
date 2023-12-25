@@ -60,9 +60,6 @@ public class GameConsole {
                         case 3:
                             System.out.print("| ");
                             break;
-                        case 4:
-                            System.out.print("T ");
-                            break;
                     }
                 }
 
