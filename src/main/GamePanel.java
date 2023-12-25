@@ -44,7 +44,9 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-
+        Level demo = Level.getInstance();
+        demo.getTower().fire();
+        if (demo.getEnemy() != null ) demo.getEnemy().advance();
     }
 
 
@@ -105,7 +107,7 @@ public class GamePanel extends JPanel implements Runnable {
         double drawInterval = 1000000000.0 / FPS;
         double nextDrawTime = System.nanoTime() + drawInterval;
         while (gameThread != null) {
-            update();
+//            update();
             repaint();
             double delta = nextDrawTime - System.nanoTime();
             if (delta > 0) {

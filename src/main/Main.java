@@ -8,12 +8,9 @@ import world.Level;
 import javax.swing.*;
 
 public class Main {
-    public static void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
 
-    public static void main(String[] args) {
+
+    public static void main(String[] args)  {
         // level creation
         Level demo = Level.getInstance("resources/arena.txt");
 
@@ -42,16 +39,7 @@ public class Main {
 
 
         // game loop
-        while (true) {
-            clearScreen();
-            demo.printArena();
-            demo.getTower().fire();
-            if (demo.getEnemy() != null ) demo.getEnemy().advance();
-            try {
-                Thread.sleep(500); // pause for 2 seconds
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+        GameConsole.loop();
     }
+
 }
