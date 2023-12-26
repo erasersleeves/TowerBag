@@ -17,7 +17,7 @@ public class Player extends GameObject {
     private int health = 5;
     private int money = 0;
     private int score = 0;
-    public int speed = 4;
+    public int speed = 1;
     private int x ;
     private int y ;
     private Level level = Level.getInstance();
@@ -26,7 +26,6 @@ public class Player extends GameObject {
     public Player() {
         this.x = 0;
         this.y = 2;
-
     }
 
 
@@ -59,6 +58,10 @@ public class Player extends GameObject {
         return (tower.getX() == x && tower.getY() == y);
     }
 
+    public boolean reaches(Coin coin) {
+        return (coin.getX() == x && coin.getY() == y);
+    }
+
 
     public Image getImage() {
         BufferedImage img = null;
@@ -69,5 +72,15 @@ public class Player extends GameObject {
         }
         Image scaledImg = img.getSubimage(0, 0, 16, 16).getScaledInstance(32, 32, Image.SCALE_SMOOTH);
         return scaledImg;
+    }
+
+
+    public void increaseMoney() {
+        money++;
+    }
+
+
+    public int getMoney() {
+        return money;
     }
 }

@@ -1,8 +1,6 @@
 package world;
 
-import gameobjects.Enemy;
-import gameobjects.Player;
-import gameobjects.Tower;
+import gameobjects.*;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -15,6 +13,7 @@ public class Level {
     private Enemy enemy;
     private Tower tower;
     private Player player;
+    private Coin coin;
     private static Level instance = null;
 
     private Level(String filePath) {
@@ -109,9 +108,15 @@ public class Level {
         }
     }
 
-
-
     public boolean isSolid(int x, int y) {
         return (arena[y][x] == 1 || arena[y][x] == 3);
+    }
+
+    public void setCoin(Coin coin) {
+        this.coin = coin;
+    }
+
+    public Coin getCoin() {
+        return coin;
     }
 }

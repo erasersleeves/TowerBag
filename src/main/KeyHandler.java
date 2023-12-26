@@ -9,8 +9,7 @@ public class KeyHandler implements KeyListener {
     // key listener for player movement using WASD
     Player player;
     Tower tower = Level.getInstance().getTower();
-
-    int tileSize = Level.getInstance().tileSize;
+    
 
     public KeyHandler(Player player) {
         this.player = player;
@@ -24,7 +23,7 @@ public class KeyHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W:
-                if (Level.getInstance().isSolid(player.getX()/tileSize, (player.getY()- player.speed)/tileSize)) {
+                if (Level.getInstance().isSolid(player.getX(), (player.getY()- player.speed))) {
                     break;
                 }
                 player.setY(player.getY()-player.speed);
@@ -33,7 +32,7 @@ public class KeyHandler implements KeyListener {
                 }
                 break;
             case KeyEvent.VK_S:
-                if (Level.getInstance().isSolid(player.getX()/tileSize, (player.getY()+player.speed)/tileSize)) {
+                if (Level.getInstance().isSolid(player.getX(), (player.getY()+player.speed))) {
                     break;
                 }
                 player.setY(player.getY()+player.speed);
@@ -42,7 +41,7 @@ public class KeyHandler implements KeyListener {
                 }
                 break;
             case KeyEvent.VK_A:
-                if (Level.getInstance().isSolid((player.getX()-player.speed)/tileSize, player.getY()/tileSize)) {
+                if (Level.getInstance().isSolid((player.getX()-player.speed), player.getY())) {
                     break;
                 }
                 player.setX(player.getX()-player.speed);
@@ -51,7 +50,7 @@ public class KeyHandler implements KeyListener {
                 }
                 break;
             case KeyEvent.VK_D:
-                if (Level.getInstance().isSolid((player.getX()+player.speed)/tileSize, player.getY()/tileSize)) {
+                if (Level.getInstance().isSolid((player.getX()+player.speed), player.getY())) {
                     break;
                 }
                 player.setX(player.getX()+player.speed);

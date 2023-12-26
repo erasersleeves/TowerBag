@@ -1,6 +1,7 @@
 package main;
 
 import world.Level;
+import gameobjects.*;
 
 public class GameConsole {
     static Level level = Level.getInstance();
@@ -9,12 +10,22 @@ public class GameConsole {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
-    public static void updateArena() {
+    public static void update() {
+        // tower fires
         level.getTower().fire();
+        // enemy advances
         if (level.getEnemy() != null ) level.getEnemy().advance();
+        // player moves
+
+        // player collects coin
+        if (level.getCoin() != null) {
+            if (level.getPlayer().reaches(level.getCoin())) {
+                level.getPlayer().increaseMoney();
+                level.setCoin(new Coin());
+            }
+        }
     }
-    public static void printArena() {
-        System.out.println("Health: " + level.getPlayer().getHealth());
+    public static void print() {
         for (int i = 0; i < level.getHeight(); i++) {
             for (int j = 0; j < level.getWidth(); j++) {
                 boolean elementFound = false;
@@ -33,6 +44,14 @@ public class GameConsole {
                         elementFound = true;
                     } else if (level.getTower().getBullet() != null && level.getTower().getBullet().getX() == j && level.getTower().getBullet().getY() == i) {
                         System.out.print(". ");
+                        elementFound = true;
+                    }
+                }
+
+                // check if there is an level.getCoin() at the current position
+                if (level.getCoin() != null) {
+                    if (level.getCoin().getX() == j && level.getCoin().getY() == i) {
+                        System.out.print("C ");
                         elementFound = true;
                     }
                 }
@@ -71,8 +90,8 @@ public class GameConsole {
     public static void loop() {
         while (true) {
             clearScreen();
-            printArena();
-            updateArena();
+            print();
+            update();
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
