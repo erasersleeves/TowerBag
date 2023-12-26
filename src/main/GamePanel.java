@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 
 public class GamePanel extends JPanel implements Runnable {
@@ -18,6 +19,7 @@ public class GamePanel extends JPanel implements Runnable {
     Player player = Level.getInstance().getPlayer();
     int tileSize = 16;
     int scale = 2;
+    private BufferedImage background;
 
     KeyHandler keyH = new KeyHandler(player);
     public static GamePanel instance = null;
@@ -26,6 +28,12 @@ public class GamePanel extends JPanel implements Runnable {
         setVisible(true);
         addKeyListener(keyH);
         setFocusable(true);
+
+        // Initialize the background image and draw the background
+        background = new BufferedImage(tileSize * scale * Level.getInstance().getArena()[0].length, tileSize * scale * Level.getInstance().getArena().length, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2dBackground = background.createGraphics();
+        drawBackground(g2dBackground);
+        g2dBackground.dispose();
     }
 
     public static GamePanel getInstance() {
@@ -49,27 +57,56 @@ public class GamePanel extends JPanel implements Runnable {
     public void drawBackground(Graphics2D g2d) {
         // Draw the background
        int[][] arena = Level.getInstance().getArena();
-       BufferedImage[] tiles = new BufferedImage[10]; // Assuming 4 different tiles
-       try {
-           tiles[0] = ImageIO.read(new File("resources/grass1.png"));
-           tiles[1] = ImageIO.read(new File("resources/path1.png"));
-           tiles[2] = ImageIO.read(new File("resources/path1.png"));
-           tiles[3] = ImageIO.read(new File("resources/path1.png"));
-           tiles[4] = ImageIO.read(new File("resources/grass1.png"));
-
-       } catch (IOException e) {
-           e.printStackTrace();
-       }
 
        // Iterate over the 2D array
        for (int i = 0; i < arena.length; i++) {
            for (int j = 0; j < arena[i].length; j++) {
-               g2d.drawImage(tiles[arena[i][j]], j * tileSize * scale, i * tileSize * scale, tileSize * scale,
+               g2d.drawImage(pickTile(arena[i][j]), j * tileSize * scale, i * tileSize * scale, tileSize * scale,
                        tileSize * scale, this);
            }
        }
     }
-  
+
+    public BufferedImage pickTile(int i){
+        switch (i) {
+            case 0:
+            case 4:
+                return pickRandomTile("resources/grass.png");
+            case 1:
+            case 2:
+            case 3:
+                return pickRandomTile("resources/path.png");
+            default:
+                return null;
+        }
+    }
+    
+    public BufferedImage pickRandomTile(String path){
+        try {
+        // Load the PNG file
+        BufferedImage image = ImageIO.read(new File(path));
+
+        // Define the size of a tile
+        int tileSize = 32; // Replace with the actual tile size
+
+        // Calculate the number of tiles in the image
+        int tilesX = image.getWidth() / tileSize;
+        int tilesY = image.getHeight() / tileSize;
+
+        // Pick a random tile
+        Random random = new Random();
+        int tileX = random.nextInt(tilesX);
+        int tileY = random.nextInt(tilesY);
+
+        // Select the tile
+        return image.getSubimage(tileX * tileSize, tileY * tileSize, tileSize, tileSize);
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+
+    return null;
+    }
+
     public void drawCoin(Graphics2D g2d) {
         Coin coin = Level.getInstance().getCoin();
         if (coin != null) {
@@ -141,7 +178,8 @@ public class GamePanel extends JPanel implements Runnable {
        super.paintComponent(g);
        Graphics2D g2d = (Graphics2D) g;
 
-       drawBackground(g2d);
+    //    drawBackground(g2d);
+    g2d.drawImage(background, 0, 0, this);
         drawCoin(g2d);
        drawPlayer(g2d);
        drawEnmey(g2d);
