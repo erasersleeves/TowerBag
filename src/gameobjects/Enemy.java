@@ -19,5 +19,7 @@ public abstract class Enemy extends GameObject {
     abstract void setLevel(Level level);
 
     abstract void inflictDamage();
+    public abstract int getHealth();
+
     
 }

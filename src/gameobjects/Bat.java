@@ -11,7 +11,7 @@ public class Bat extends Enemy {
     private int x;
     private int y;
     private boolean goingUp = false;
-    private int health = 1;
+    private int health = 3;
     private final int speed = 1;
     private int damage = 1;
 

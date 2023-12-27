@@ -1,17 +1,13 @@
 package gameobjects;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import main.GamePanel;
-import main.KeyHandler;
 import world.Level;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 
 public class Player extends GameObject {
     private int health = 5;
@@ -82,5 +78,10 @@ public class Player extends GameObject {
 
     public int getMoney() {
         return money;
+    }
+
+
+    public void decreaseMoney(int i) {
+        money -= i;
     }
 }

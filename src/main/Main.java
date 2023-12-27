@@ -1,7 +1,7 @@
 package main;
 
 import gameobjects.*;
-import world.Level;
+import world.*;
 
 import javax.swing.*;
 
@@ -23,6 +23,9 @@ public class Main {
 
         // coin creation
         demo.setCoin(new Coin());
+
+        // altar creation
+        demo.setAltar(new Altar());
 
         // GUI creation
         JFrame window = new JFrame("Tower Defense");

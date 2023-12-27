@@ -14,6 +14,7 @@ public class Level {
     private Tower tower;
     private Player player;
     private Coin coin;
+    private Altar altar;
     private static Level instance = null;
 
     private Level(String filePath) {
@@ -118,5 +119,13 @@ public class Level {
 
     public Coin getCoin() {
         return coin;
+    }
+
+    public Altar getAltar() {
+        return altar;
+    }
+
+    public void setAltar(Altar altar) {
+        this.altar = altar;
     }
 }

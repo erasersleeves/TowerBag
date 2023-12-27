@@ -13,8 +13,8 @@ public class Tower extends GameObject{
     private int y;
     private int range;
     private int damage;
-    private float cooldown;
-    private float cooldownRemaining;
+    private int cooldown;
+    private int cooldownRemaining;
     private Bullet bullet;
 
     private Level level = Level.getInstance();
@@ -24,7 +24,7 @@ public class Tower extends GameObject{
     public Tower() {
         this.range = 3;
         this.damage = 1;
-        this.cooldown = 2;
+        this.cooldown = 5;
         this.cooldownRemaining = 0;
         // spawn at arena tile that is equal to 4
         for (int i = 0; i < level.getArena().length; i++) {
@@ -37,28 +37,19 @@ public class Tower extends GameObject{
         }
     }
 
-    public void setLevel(Level level) {
-        this.level = level;
-    }
+
 
     public void fire() {
-        if (isLifted) {
-            bullet = null;
-            return;
+        if (!isLifted && cooldownRemaining <= 0) {
+            Enemy target = level.getEnemy();
+            if (target != null && Math.abs(target.getX() - x) <= range && Math.abs(target.getY() - y) <= range) {
+                target.takeDamage(damage);
+                cooldownRemaining = cooldown;
+            }
         }
-        if (bullet == null || disTowBull() > range) bullet = new Bullet(x, y, 1, damage, level.getEnemy());
-        bullet.advance();
-        if (level.getEnemy() != null && bullet.getX() == bullet.getTarget().getX() && bullet.getY() == bullet.getTarget().getY()) {
-            bullet.getTarget().takeDamage(damage);
-            bullet = new Bullet(x, y, 1, damage, level.getEnemy());
-        }
+        cooldownRemaining--;
     }
 
-    private int disTowBull() {
-        // return distance between x and y of tower and bullet
-        return Math.abs(bullet.getY()-y);
-
-    }
 
     public int getX() {
         return x;
@@ -100,5 +91,21 @@ public class Tower extends GameObject{
 
     public void setX(int x) {
         this.x = x;
+    }
+
+    public int getRange() {
+        return range;
+    }
+
+    public void increaseRange() {
+        range++;
+    }
+
+    public void increaseDamage() {
+        damage++;
+    }
+
+    public void decreaseCooldown() {
+        cooldown--;
     }
 }

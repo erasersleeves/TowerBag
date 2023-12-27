@@ -25,6 +25,14 @@ public class GameConsole {
                 level.setCoin(new Coin());
             }
         }
+
+        // player upgrades tower
+        if (!level.getTower().isLifted() && level.getTower().getX() == level.getAltar().getX() && level.getTower().getY() == level.getAltar().getY() && level.getPlayer().getMoney() >= 5) {
+            level.getAltar().trigger();
+            level.getAltar().upgrade(0);
+            level.getPlayer().decreaseMoney(5);
+        }
+        
     }
     
     public static void print() {
@@ -71,6 +79,7 @@ public class GameConsole {
                     switch (level.getArena()[i][j]) {
                         case 0:
                         case 4:
+                        case 5:
                             System.out.print("  ");
                             break;
                         case 1:
@@ -88,7 +97,9 @@ public class GameConsole {
             }
             System.out.println();
         }
-        System.out.println("HP: " + level.getPlayer().getHealth() + " Money: " + level.getPlayer().getMoney());
+        String enemyInfo = "";
+        if (level.getEnemy() != null)  enemyInfo = " Enemy HP: " + level.getEnemy().getHealth();
+        System.out.println("HP: " + level.getPlayer().getHealth() + " Money: " + level.getPlayer().getMoney() + " Range : " + level.getTower().getRange() + enemyInfo );
     }
 
     public static void loop() {

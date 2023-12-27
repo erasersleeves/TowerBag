@@ -5,13 +5,13 @@ import javax.swing.*;
 
 import gameobjects.*;
 import world.Level;
+import world.Altar;
 
 import java.awt.*;
-import java.awt.font.FontRenderContext;
-import java.awt.font.GlyphVector;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Random;
 
 
@@ -22,6 +22,7 @@ public class GamePanel extends JPanel implements Runnable {
     int tileSize = 16;
     int scale = 2;
     private BufferedImage background;
+
 
     KeyHandler keyH = new KeyHandler(player);
     public static GamePanel instance = null;
@@ -52,10 +53,7 @@ public class GamePanel extends JPanel implements Runnable {
         gameThread.start();
     }
 
-    public void update() {
-        Level demo = Level.getInstance();
-        demo.getTower().fire();
-        if (demo.getEnemy() != null ) demo.getEnemy().advance();
+    public void update() {        
     }
 
     public void drawBackground(Graphics2D g2d) {
@@ -75,6 +73,7 @@ public class GamePanel extends JPanel implements Runnable {
         switch (i) {
             case 0:
             case 4:
+            case 5:
                 return pickRandomTile("resources/grass.png");
             case 1:
             case 2:
@@ -123,6 +122,18 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    public void drawAltar(Graphics2D g2d) {
+        Altar altar = Level.getInstance().getAltar();
+        if (altar != null) {
+            Image altarImage = null;
+            if (altar.isTriggered()) altarImage = new ImageIcon("resources/altartriggered.png").getImage();
+            else altarImage = new ImageIcon("resources/altar.png").getImage();
+            int altarX = (altar.getX()-1) * tileSize * scale;
+            int altarY = (altar.getY()-1) * tileSize * scale;
+            g2d.drawImage(altarImage, altarX, altarY, altarImage.getWidth(this), altarImage.getHeight(this), this);
+        }
+    }
+
     public void drawPlayer(Graphics2D g2d) {
         if (player != null) {
            g2d.drawImage(player.getImage(), player.getX() * tileSize * scale, player.getY() * tileSize * scale,
@@ -148,14 +159,25 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+
     public void drawTower(Graphics2D g2d) {
         Tower tower = Level.getInstance().getTower();
-       if (tower != null) {
-           g2d.drawImage(tower.getImage(), tower.getX() * tileSize * scale, (tower.getY() - 1) * tileSize * scale,
-                   tileSize * scale, tileSize * scale * 2, this);
-        }
-    }
+        if (tower == null) return;
+        g2d.drawImage(tower.getImage(), tower.getX() * tileSize * scale, (tower.getY() - 1) * tileSize * scale, tileSize * scale, tileSize * scale * 2, this);
+        
+        if (tower.isLifted()){
+    
+            // Draw circle around the tower with range as radius
+            int towerCenterX = tower.getX() * tileSize * scale + tileSize * scale / 2;
+            int towerCenterY = (tower.getY() - 1) * tileSize * scale + tileSize * scale;
+            int circleRadius = tower.getRange() * tileSize * scale;
 
+            g2d.setColor(Color.GRAY);
+            g2d.drawOval(towerCenterX - circleRadius, towerCenterY - circleRadius, circleRadius * 2, circleRadius * 2);
+        }
+        
+    }
+    
     public void drawHealth(Graphics2D g2d) {
         // Load the heart image
         Image heartImage = new ImageIcon("resources/heart.png").getImage();
@@ -177,7 +199,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     }
 
-    public void drawMoneyCounter(Graphics2D g2d){
+    public void drawMoneyCounter(Graphics2D g2d) {
         // Load the coin image
         Image coinImage = new ImageIcon("resources/coin.png").getImage();
 
@@ -189,12 +211,13 @@ public class GamePanel extends JPanel implements Runnable {
         int coinY = this.getHeight() - coinImage.getHeight(null) - 25;
 
         g2d.drawImage(coinImage, coinX, coinY, coinImage.getWidth(null), coinImage.getHeight(null), this);
-        
+
+        g2d.setFont(new Font("Consolas", Font.BOLD, 15));
         g2d.setColor(Color.LIGHT_GRAY);
-        g2d.setFont(new Font("Press Start 2P", Font.BOLD, 15));
         g2d.drawString(" x " + money, coinX + 15, coinY + 15);
 
     }
+
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -204,6 +227,7 @@ public class GamePanel extends JPanel implements Runnable {
     //    drawBackground(g2d);
     g2d.drawImage(background, 0, 0, this);
         drawCoin(g2d);
+        drawAltar(g2d);
        drawPlayer(g2d);
        drawEnmey(g2d);
         drawBullet(g2d);
