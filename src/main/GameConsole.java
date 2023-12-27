@@ -10,6 +10,7 @@ public class GameConsole {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
+    
     public static void update() {
         // tower fires
         level.getTower().fire();
@@ -25,6 +26,7 @@ public class GameConsole {
             }
         }
     }
+    
     public static void print() {
         for (int i = 0; i < level.getHeight(); i++) {
             for (int j = 0; j < level.getWidth(); j++) {
@@ -68,6 +70,7 @@ public class GameConsole {
                     // switch case to print out the arena
                     switch (level.getArena()[i][j]) {
                         case 0:
+                        case 4:
                             System.out.print("  ");
                             break;
                         case 1:
@@ -85,6 +88,7 @@ public class GameConsole {
             }
             System.out.println();
         }
+        System.out.println("HP: " + level.getPlayer().getHealth() + " Money: " + level.getPlayer().getMoney());
     }
 
     public static void loop() {

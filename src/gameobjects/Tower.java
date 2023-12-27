@@ -42,6 +42,10 @@ public class Tower extends GameObject{
     }
 
     public void fire() {
+        if (isLifted) {
+            bullet = null;
+            return;
+        }
         if (bullet == null || disTowBull() > range) bullet = new Bullet(x, y, 1, damage, level.getEnemy());
         bullet.advance();
         if (level.getEnemy() != null && bullet.getX() == bullet.getTarget().getX() && bullet.getY() == bullet.getTarget().getY()) {

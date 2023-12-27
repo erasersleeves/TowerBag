@@ -7,6 +7,8 @@ import gameobjects.*;
 import world.Level;
 
 import java.awt.*;
+import java.awt.font.FontRenderContext;
+import java.awt.font.GlyphVector;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +25,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     KeyHandler keyH = new KeyHandler(player);
     public static GamePanel instance = null;
+
+    
     private GamePanel() {
         setPreferredSize(new Dimension(tileSize * scale * Level.getInstance().getArena()[0].length, tileSize * scale * Level.getInstance().getArena().length));
         setVisible(true);
@@ -173,6 +177,25 @@ public class GamePanel extends JPanel implements Runnable {
 
     }
 
+    public void drawMoneyCounter(Graphics2D g2d){
+        // Load the coin image
+        Image coinImage = new ImageIcon("resources/coin.png").getImage();
+
+        // Get the player's money
+        int money = player.getMoney();
+
+        // Calculate the position for the first heart
+        int coinX = this.getWidth() - coinImage.getWidth(null) - 40;
+        int coinY = this.getHeight() - coinImage.getHeight(null) - 25;
+
+        g2d.drawImage(coinImage, coinX, coinY, coinImage.getWidth(null), coinImage.getHeight(null), this);
+        
+        g2d.setColor(Color.LIGHT_GRAY);
+        g2d.setFont(new Font("Press Start 2P", Font.BOLD, 15));
+        g2d.drawString(" x " + money, coinX + 15, coinY + 15);
+
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
        super.paintComponent(g);
@@ -186,7 +209,9 @@ public class GamePanel extends JPanel implements Runnable {
         drawBullet(g2d);
        drawTower(g2d);
         drawHealth(g2d);
+        drawMoneyCounter(g2d);
     }
+    
     @Override
     public void run() {
         // game loop
