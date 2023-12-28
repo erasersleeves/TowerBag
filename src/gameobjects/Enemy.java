@@ -20,6 +20,7 @@ public abstract class Enemy extends GameObject {
 
     abstract void inflictDamage();
     public abstract int getHealth();
+    public abstract Image getImage();
 
     
 }

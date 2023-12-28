@@ -41,7 +41,7 @@ public class Tower extends GameObject{
 
     public void fire() {
         if (!isLifted && cooldownRemaining <= 0) {
-            Enemy target = level.getEnemy();
+            Enemy target = null;
             if (target != null && Math.abs(target.getX() - x) <= range && Math.abs(target.getY() - y) <= range) {
                 target.takeDamage(damage);
                 cooldownRemaining = cooldown;

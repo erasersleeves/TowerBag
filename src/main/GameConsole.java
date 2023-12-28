@@ -5,6 +5,7 @@ import gameobjects.*;
 
 public class GameConsole {
     static Level level = Level.getInstance();
+    static private EnemyWave currentWave = level.getWave();
 
     public static void clearScreen() {
         System.out.print("\033[H\033[2J");
@@ -14,9 +15,16 @@ public class GameConsole {
     public static void update() {
         // tower fires
         level.getTower().fire();
-        // enemy advances
-        if (level.getEnemy() != null ) level.getEnemy().advance();
-        // player moves
+        // enemy wave
+        
+        for (Enemy enemy : level.getWave().getEnemies()) {
+            enemy.advance();
+        }
+        
+        if (!currentWave.hasMoreEnemies()) {
+            // All enemies in the current wave have been spawned.
+            // Replace currentWave with a new wave...
+        }
 
         // player collects coin
         if (level.getCoin() != null) {
@@ -26,9 +34,12 @@ public class GameConsole {
             }
         }
 
+        // trigger altar
+        if (level.getPlayer().getMoney() >= 5) level.getAltar().trigger(true);
+        else level.getAltar().trigger(false);
+
         // player upgrades tower
         if (!level.getTower().isLifted() && level.getTower().getX() == level.getAltar().getX() && level.getTower().getY() == level.getAltar().getY() && level.getPlayer().getMoney() >= 5) {
-            level.getAltar().trigger();
             level.getAltar().upgrade(0);
             level.getPlayer().decreaseMoney(5);
         }
@@ -66,10 +77,20 @@ public class GameConsole {
                     }
                 }
 
-                // check if there is an level.getEnemy() at the current position
-                if (level.getEnemy() != null) {
-                    if (level.getEnemy().getX() == j && level.getEnemy().getY() == i) {
-                        System.out.print("B ");
+                // iterate through the enemies and check if there is an enemy at the current position
+                if (level.getWave() != null) {
+                    for (Enemy enemy : level.getWave().getEnemies()) {
+                        if (enemy.getX() == j && enemy.getY() == i) {
+                            System.out.print("E ");
+                            elementFound = true;
+                        }
+                    }
+                }
+
+                // check if there is an level.getAltar() at the current position
+                if (level.getAltar() != null) {
+                    if (level.getAltar().getX() == j && level.getAltar().getY() == i) {
+                        System.out.print("A ");
                         elementFound = true;
                     }
                 }
@@ -97,9 +118,7 @@ public class GameConsole {
             }
             System.out.println();
         }
-        String enemyInfo = "";
-        if (level.getEnemy() != null)  enemyInfo = " Enemy HP: " + level.getEnemy().getHealth();
-        System.out.println("HP: " + level.getPlayer().getHealth() + " Money: " + level.getPlayer().getMoney() + " Range : " + level.getTower().getRange() + enemyInfo );
+        System.out.println("altx: " + level.getAltar().getX() + " alty: " + level.getAltar().getY() + " x: " + level.getPlayer().getX() + " y: " + level.getPlayer().getY() );
     }
 
     public static void loop() {

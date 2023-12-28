@@ -4,14 +4,13 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import gameobjects.*;
-import world.Level;
-import world.Altar;
+import world.*;
+
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Random;
 
 
@@ -142,11 +141,10 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void drawEnmey(Graphics2D g2d) {
-        Bat enemy = (Bat) Level.getInstance().getEnemy();
-       if (enemy != null) {
-           g2d.drawImage(enemy.getImage(), enemy.getX() * tileSize * scale, enemy.getY() * tileSize * scale,
-                   tileSize * scale, tileSize * scale, this);
-       }
+        for (Enemy enemy : Level.getInstance().getWave().getEnemies()) {
+            g2d.drawImage(enemy.getImage(), enemy.getX() * tileSize * scale, enemy.getY() * tileSize * scale,
+                    tileSize * scale, tileSize * scale, this);
+        }
     }
 
     public void drawBullet(Graphics2D g2d){
@@ -158,7 +156,6 @@ public class GamePanel extends JPanel implements Runnable {
            g2d.drawImage(bulletImage, bulletX, bulletY, bulletImage.getWidth(null), bulletImage.getHeight(null), this);
         }
     }
-
 
     public void drawTower(Graphics2D g2d) {
         Tower tower = Level.getInstance().getTower();

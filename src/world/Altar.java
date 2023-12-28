@@ -9,16 +9,17 @@ public class Altar {
     Level level = Level.getInstance();
 
     public Altar() {
-        //spawn at arena tile that is equal to 5
-        for (int i = 0; i < Level.getInstance().getArena().length; i++) {
-            for (int j = 0; j < Level.getInstance().getArena()[0].length; j++) {
-                if (Level.getInstance().getArena()[i][j] == 5) {
-                    x = j;
-                    y = i;
+        //altar is a 3x3 block of 5s, spawn at the middle of the block
+        for (int i = 0; i < level.getArena().length; i++) {
+            for (int j = 0; j < level.getArena()[0].length; j++) {
+                if (level.getArena()[i][j] == 5) {
+                    x = j-1;
+                    y = i-1;
                 }
             }
         }
     }
+
 
     public int getX() {
         return x;
@@ -47,8 +48,8 @@ public class Altar {
     }
 
 
-    public void trigger(){
-        triggered = true;
+    public void trigger(boolean b){
+        triggered = b;
     }
 
     public boolean isTriggered() {

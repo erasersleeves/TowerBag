@@ -1,6 +1,7 @@
 package world;
 
 import gameobjects.*;
+import main.EnemyWave;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -10,7 +11,7 @@ public class Level {
     private int height;
     private int width;
     private int[][] arena = new int[height][width];
-    private Enemy enemy;
+    private EnemyWave wave;
     private Tower tower;
     private Player player;
     private Coin coin;
@@ -45,12 +46,12 @@ public class Level {
         return arena;
     }
 
-    public Enemy getEnemy() {
-        return enemy;
+    public void setWave(EnemyWave wave) {
+        this.wave = wave;
     }
 
-    public void setEnemy(Enemy enemy) {
-        this.enemy = enemy;
+    public EnemyWave getWave() {
+        return wave;
     }
 
     public Tower getTower() {

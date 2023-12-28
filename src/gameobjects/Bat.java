@@ -17,17 +17,9 @@ public class Bat extends Enemy {
 
     private Level level = Level.getInstance();
 
-    public Bat() {
-        // spawn at arena tile that is equal to 2
-        for (int i = 0; i < level.getArena().length; i++) {
-            for (int j = 0; j < level.getArena()[0].length; j++) {
-                if (level.getArena()[i][j] == 2) {
-                    x = j;
-                    y = i;
-                }
-            }
-        }
-
+    public Bat(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
     @Override
@@ -41,6 +33,10 @@ public class Bat extends Enemy {
     }
 
     public void advance() {
+        if (x<0) {
+            x++;
+            return;
+        }
         
         if (x + 1 < level.getArena()[0].length && (level.getArena()[y][x + 1] == 1 || level.getArena()[y][x + 1] == 3)) {
             //go right
@@ -66,14 +62,15 @@ public class Bat extends Enemy {
         if (level.getArena()[y][x] == 3){
             level.getPlayer().takeDamage(damage);
             //delete bat
-            level.setEnemy(null);
         }
     }
 
     @Override
     public void takeDamage(int damage) {
         health -= damage;
-        if (health <= 0) {level.setEnemy(null);}
+        if (health <= 0) {
+            //delete bat
+        }
     }
 
 
