@@ -24,7 +24,7 @@ public class Tower extends GameObject{
     public Tower() {
         this.range = 3;
         this.damage = 1;
-        this.cooldown = 5;
+        this.cooldown = 4;
         this.cooldownRemaining = 0;
         // spawn at arena tile that is equal to 4
         for (int i = 0; i < level.getArena().length; i++) {
@@ -38,18 +38,22 @@ public class Tower extends GameObject{
     }
 
 
+    public boolean isInRange(Enemy target) {
+        if (target != null) {
+            int xDistance = Math.abs(target.getX() - x);
+            int yDistance = Math.abs(target.getY() - y);
+            return xDistance <= range && yDistance <= range;
+        }
+        return false;
+    }
 
-    public void fire() {
+    public void fire(Enemy target) {
         if (!isLifted && cooldownRemaining <= 0) {
-            Enemy target = null;
-            if (target != null && Math.abs(target.getX() - x) <= range && Math.abs(target.getY() - y) <= range) {
-                target.takeDamage(damage);
-                cooldownRemaining = cooldown;
-            }
+            target.takeDamage(damage);
+            cooldownRemaining = cooldown;
         }
         cooldownRemaining--;
     }
-
 
     public int getX() {
         return x;

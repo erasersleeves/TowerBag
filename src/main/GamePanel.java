@@ -7,6 +7,7 @@ import gameobjects.*;
 import world.*;
 
 
+import java.util.Iterator;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -21,7 +22,6 @@ public class GamePanel extends JPanel implements Runnable {
     int tileSize = 16;
     int scale = 2;
     private BufferedImage background;
-
 
     KeyHandler keyH = new KeyHandler(player);
     public static GamePanel instance = null;
@@ -141,7 +141,9 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void drawEnmey(Graphics2D g2d) {
-        for (Enemy enemy : Level.getInstance().getWave().getEnemies()) {
+        Iterator<Enemy> iterator = Level.getInstance().getWave().getEnemies().iterator();
+        while (iterator.hasNext()) {
+            Enemy enemy = iterator.next();
             g2d.drawImage(enemy.getImage(), enemy.getX() * tileSize * scale, enemy.getY() * tileSize * scale,
                     tileSize * scale, tileSize * scale, this);
         }
@@ -149,11 +151,11 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void drawBullet(Graphics2D g2d){
         Bullet bullet = Level.getInstance().getTower().getBullet();
-       if (bullet != null) {
-           Image bulletImage = bullet.getImage();
-           int bulletX = bullet.getX() * tileSize * scale + tileSize * scale / 2 - bulletImage.getWidth(null) / 2;
-           int bulletY = bullet.getY() * tileSize * scale + tileSize * scale / 2 - bulletImage.getHeight(null) / 2;
-           g2d.drawImage(bulletImage, bulletX, bulletY, bulletImage.getWidth(null), bulletImage.getHeight(null), this);
+        if (bullet != null) {
+            Image bulletImage = bullet.getImage();
+            int bulletX = bullet.getX() * tileSize * scale + tileSize * scale / 2 - bulletImage.getWidth(null) / 2;
+            int bulletY = bullet.getY() * tileSize * scale + tileSize * scale / 2 - bulletImage.getHeight(null) / 2;
+            g2d.drawImage(bulletImage, bulletX, bulletY, bulletImage.getWidth(null), bulletImage.getHeight(null), this);
         }
     }
 

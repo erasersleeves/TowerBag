@@ -1,6 +1,9 @@
 package main;
 
 import world.Level;
+
+import java.util.Iterator;
+
 import gameobjects.*;
 
 public class GameConsole {
@@ -13,14 +16,29 @@ public class GameConsole {
     }
     
     public static void update() {
-        // tower fires
-        level.getTower().fire();
         // enemy wave
         
-        for (Enemy enemy : level.getWave().getEnemies()) {
+        Iterator<Enemy> iterator = level.getWave().getEnemies().iterator();
+        while (iterator.hasNext()) {
+            Enemy enemy = iterator.next();
             enemy.advance();
+            if (enemy.isAtBase()) {
+                level.getPlayer().takeDamage(enemy.getDamage());
+                iterator.remove();
+            }
+            Enemy target = null;
+            if (level.getTower().isInRange(enemy)) target = enemy;
+            if (target != null) {
+                level.getTower().fire(target);
+                if (target.getHealth() <= 0) {
+                    // remove target
+                    iterator.remove();
+                }
+            }   
         }
-        
+            
+
+
         if (!currentWave.hasMoreEnemies()) {
             // All enemies in the current wave have been spawned.
             // Replace currentWave with a new wave...

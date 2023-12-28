@@ -4,13 +4,6 @@ import world.Level;
 import java.awt.*;
 
 public abstract class Enemy extends GameObject {
-    int x;
-    int y;
-    int health;
-    int speed;
-    Level level = Level.getInstance();
-
-    int damage;
 
     public abstract void advance();
     abstract void takeDamage(int damage);
@@ -18,9 +11,8 @@ public abstract class Enemy extends GameObject {
     public abstract int getY();
     abstract void setLevel(Level level);
 
-    abstract void inflictDamage();
     public abstract int getHealth();
     public abstract Image getImage();
-
-    
+    public abstract boolean isAtBase();
+    public abstract int getDamage();
 }

@@ -1,6 +1,6 @@
 package gameobjects;
-import world.Level;
 
+import world.Level;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -11,15 +11,15 @@ public class Bat extends Enemy {
     private int x;
     private int y;
     private boolean goingUp = false;
-    private int health = 3;
+    private int health = 2;
     private final int speed = 1;
     private int damage = 1;
-
     private Level level = Level.getInstance();
 
     public Bat(int x, int y) {
         this.x = x;
         this.y = y;
+
     }
 
     @Override
@@ -54,15 +54,13 @@ public class Bat extends Enemy {
             x -= speed;
             goingUp = false;
         } 
-        inflictDamage();
     }
 
     @Override
-    public void inflictDamage() {
-        if (level.getArena()[y][x] == 3){
-            level.getPlayer().takeDamage(damage);
-            //delete bat
-        }
+    public boolean isAtBase() {
+        if (x < 0 ) return false;
+        if (level.getArena()[y][x] == 3) return true;
+        return false;
     }
 
     @Override
@@ -97,5 +95,10 @@ public class Bat extends Enemy {
     @Override
     void setLevel(Level level) {
         this.level = level;
+    }
+
+    @Override
+    public int getDamage() {
+        return damage;
     }
 }

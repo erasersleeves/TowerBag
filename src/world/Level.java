@@ -41,7 +41,6 @@ public class Level {
         return width;
     }
 
-
     public int[][] getArena() {
         return arena;
     }
