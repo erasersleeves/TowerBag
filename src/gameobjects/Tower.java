@@ -9,15 +9,11 @@ import java.io.IOException;
 
 
 public class Tower extends GameObject{
-    private int x;
-    private int y;
     private int range;
     private int damage;
     private int cooldown;
     private int cooldownRemaining;
     private Bullet bullet;
-
-    private Level level = Level.getInstance();
 
     private boolean isLifted = false;
 
@@ -27,16 +23,15 @@ public class Tower extends GameObject{
         this.cooldown = 4;
         this.cooldownRemaining = 0;
         // spawn at arena tile that is equal to 4
-        for (int i = 0; i < level.getArena().length; i++) {
-            for (int j = 0; j < level.getArena()[0].length; j++) {
-                if (level.getArena()[i][j] == 4) {
+        for (int i = 0; i < Level.getInstance().getArena().length; i++) {
+            for (int j = 0; j < Level.getInstance().getArena()[0].length; j++) {
+                if (Level.getInstance().getArena()[i][j] == 4) {
                     x = j;
                     y = i;
                 }
             }
         }
     }
-
 
     public boolean isInRange(Enemy target) {
         if (target != null) {
@@ -53,14 +48,6 @@ public class Tower extends GameObject{
             cooldownRemaining = cooldown;
         }
         cooldownRemaining--;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
     }
 
     public Bullet getBullet() {
@@ -89,14 +76,6 @@ public class Tower extends GameObject{
         return isLifted;
     }
 
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
     public int getRange() {
         return range;
     }
@@ -111,5 +90,12 @@ public class Tower extends GameObject{
 
     public void decreaseCooldown() {
         cooldown--;
+    }
+
+    public void followPlayer() {
+        if (isLifted()) {
+            x = Level.getInstance().getPlayer().getX();
+            y = Level.getInstance().getPlayer().getY();
+        }
     }
 }

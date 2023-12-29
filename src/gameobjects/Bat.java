@@ -92,10 +92,6 @@ public class Bat extends Enemy {
         return scaledImg;
     }
 
-    @Override
-    void setLevel(Level level) {
-        this.level = level;
-    }
 
     @Override
     public int getDamage() {

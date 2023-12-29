@@ -9,6 +9,8 @@ import gameobjects.*;
 public class GameConsole {
     static Level level = Level.getInstance();
     static private EnemyWave currentWave = level.getWave();
+    static int kills = 0;
+    static boolean isPaused = false;
 
     public static void clearScreen() {
         System.out.print("\033[H\033[2J");
@@ -16,8 +18,8 @@ public class GameConsole {
     }
     
     public static void update() {
+        if (isPaused) return;
         // enemy wave
-        
         Iterator<Enemy> iterator = level.getWave().getEnemies().iterator();
         while (iterator.hasNext()) {
             Enemy enemy = iterator.next();
@@ -33,6 +35,7 @@ public class GameConsole {
                 if (target.getHealth() <= 0) {
                     // remove target
                     iterator.remove();
+                    kills++;
                 }
             }   
         }
@@ -136,7 +139,7 @@ public class GameConsole {
             }
             System.out.println();
         }
-        System.out.println("altx: " + level.getAltar().getX() + " alty: " + level.getAltar().getY() + " x: " + level.getPlayer().getX() + " y: " + level.getPlayer().getY() );
+        System.out.println("Kills : " + kills);
     }
 
     public static void loop() {
@@ -150,6 +153,10 @@ public class GameConsole {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static void Pause() {
+        isPaused = !isPaused;
     }
 
 }

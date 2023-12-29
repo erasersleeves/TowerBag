@@ -2,8 +2,6 @@ package gameobjects;
 import world.Level;
 
 public class Coin extends GameObject{
-    private int x;
-    private int y;
     private int value;
     private Level level;
 
@@ -23,14 +21,6 @@ public class Coin extends GameObject{
 
     public void setLevel(Level level) {
         this.level = level;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
     }
 
     public int getValue() {

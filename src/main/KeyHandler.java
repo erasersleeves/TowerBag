@@ -9,7 +9,6 @@ public class KeyHandler implements KeyListener {
     // key listener for player movement using WASD
     Player player;
     Tower tower = Level.getInstance().getTower();
-    
 
     public KeyHandler(Player player) {
         this.player = player;
@@ -21,49 +20,39 @@ public class KeyHandler implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        if (GameConsole.isPaused) {
+            switch (e.getKeyCode()) {
+            case KeyEvent.VK_ESCAPE:
+                GameConsole.Pause();
+                break;
+            default:
+                break;
+            }
+            return;
+        } 
+
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W:
-                if (Level.getInstance().isSolid(player.getX(), (player.getY()- player.speed))) {
-                    break;
-                }
-                player.setY(player.getY()-player.speed);
-                if (tower.isLifted()) {
-                    tower.setY(tower.getY()-player.speed);
-                }
+                player.moveUp();
+                tower.followPlayer();
                 break;
             case KeyEvent.VK_S:
-                if (Level.getInstance().isSolid(player.getX(), (player.getY()+player.speed))) {
-                    break;
-                }
-                player.setY(player.getY()+player.speed);
-                if (tower.isLifted()) {
-                    tower.setY(tower.getY()+player.speed);
-                }
+                player.moveDown();
+                tower.followPlayer();
                 break;
             case KeyEvent.VK_A:
-                if (Level.getInstance().isSolid((player.getX()-player.speed), player.getY())) {
-                    break;
-                }
-                player.setX(player.getX()-player.speed);
-                if (tower.isLifted()) {
-                    tower.setX(tower.getX()-player.speed);
-                }
+                player.moveLeft();
+                tower.followPlayer();
                 break;
             case KeyEvent.VK_D:
-                if (Level.getInstance().isSolid((player.getX()+player.speed), player.getY())) {
-                    break;
-                }
-                player.setX(player.getX()+player.speed);
-                if (tower.isLifted()) {
-                    tower.setX(tower.getX()+player.speed);
-                }
+                player.moveRight();
+                tower.followPlayer();
                 break;
             case KeyEvent.VK_SPACE:
-                if (player.reaches(tower) && !tower.isLifted()) {
-                    tower.lift();
-                } else if (tower.isLifted()) {
-                    tower.drop();
-                }
+                player.interact(tower);
+                break;
+            case KeyEvent.VK_ESCAPE:
+                GameConsole.Pause();
                 break;
             default:
                 break;

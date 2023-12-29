@@ -14,9 +14,7 @@ public class Player extends GameObject {
     private int money = 0;
     private int score = 0;
     public int speed = 1;
-    private int x ;
-    private int y ;
-    private Level level = Level.getInstance();
+
 
 
     public Player() {
@@ -24,24 +22,7 @@ public class Player extends GameObject {
         this.y = 2;
     }
 
-
-    //getters for x and y
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    //setters for x and y
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
+    
     public void takeDamage(float damage) {
         health -= damage;
     }
@@ -50,12 +31,16 @@ public class Player extends GameObject {
 		return health;
 	}
 
-    public boolean reaches(Tower tower) {
-        return (tower.getX() == x && tower.getY() == y);
-    }
+ 
+    public void interact(Tower tower) {
+        if (reaches(tower)) {
+            if (tower.isLifted()) {
+                tower.drop();;
+            } else {
+                tower.lift();
+            }
+        }
 
-    public boolean reaches(Coin coin) {
-        return (coin.getX() == x && coin.getY() == y);
     }
 
 
@@ -70,16 +55,37 @@ public class Player extends GameObject {
         return scaledImg;
     }
 
+    public void moveUp() {
+        if (!Level.getInstance().isSolid(x, y - speed)) {
+            y -= speed;
+        }
+    }
+
+    public void moveDown() {
+        if (!Level.getInstance().isSolid(x, y + speed)) {
+            y += speed;
+        }
+    }
+
+    public void moveLeft() {
+        if (!Level.getInstance().isSolid(x - speed, y)) {
+            x -= speed;
+        }
+    }
+
+    public void moveRight() {
+        if (!Level.getInstance().isSolid(x + speed, y)) {
+            x += speed;
+        }
+    }
 
     public void increaseMoney() {
         money++;
     }
 
-
     public int getMoney() {
         return money;
     }
-
 
     public void decreaseMoney(int i) {
         money -= i;

@@ -8,8 +8,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class Bullet extends GameObject{
-    private int x;
-    private int y;
     private int speed;
     private int damage;
     private Level level = Level.getInstance();
@@ -25,13 +23,6 @@ public class Bullet extends GameObject{
 
     public void advance() {
         y -= speed;
-    }
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
     }
 
     public Enemy getTarget() {

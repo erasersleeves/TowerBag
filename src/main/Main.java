@@ -16,7 +16,7 @@ public class Main {
 
         //create ememy list
         List<Enemy> enemies = new ArrayList<>();
-        enemies.add(new Bat(20, 0));
+        enemies.add(new Bat(0, 0));
         enemies.add(new Bat(-3, 0));
         enemies.add(new Bat(0, 11));
         enemies.add(new Bat(-5, 11));

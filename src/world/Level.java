@@ -110,6 +110,7 @@ public class Level {
     }
 
     public boolean isSolid(int x, int y) {
+        if (x < 0 || x >= width || y < 0 || y >= height) return true;
         return (arena[y][x] == 1 || arena[y][x] == 3);
     }
 
