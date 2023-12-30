@@ -17,20 +17,13 @@ public class Tower extends GameObject{
 
     private boolean isLifted = false;
 
-    public Tower() {
+    public Tower(int x, int y) {
         this.range = 3;
         this.damage = 1;
         this.cooldown = 4;
         this.cooldownRemaining = 0;
-        // spawn at arena tile that is equal to 4
-        for (int i = 0; i < Level.getInstance().getArena().length; i++) {
-            for (int j = 0; j < Level.getInstance().getArena()[0].length; j++) {
-                if (Level.getInstance().getArena()[i][j] == 4) {
-                    x = j;
-                    y = i;
-                }
-            }
-        }
+        this.x = x;
+        this.y = y;
     }
 
     public boolean isInRange(Enemy target) {
@@ -93,9 +86,10 @@ public class Tower extends GameObject{
     }
 
     public void followPlayer() {
+        Player player = Level.getInstance().getPlayer();
         if (isLifted()) {
-            x = Level.getInstance().getPlayer().getX();
-            y = Level.getInstance().getPlayer().getY();
+            x = player.getX();
+            y = player.getY();
         }
     }
 }

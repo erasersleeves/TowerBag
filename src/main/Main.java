@@ -26,10 +26,10 @@ public class Main {
         demo.setWave(new EnemyWave(enemies));
         
         // tower creation
-        demo.setTower(new Tower());
+        demo.setTower(new Tower(15, 7));
 
         // player creation
-        demo.setPlayer(new Player());
+        demo.setPlayer(new Player(3, 7));
 
         // coin creation
         demo.setCoin(new Coin());

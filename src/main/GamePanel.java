@@ -149,6 +149,19 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    public void drawBridge(Graphics2D g2d) {
+        BufferedImage bridgeImage = null;
+        try {
+            bridgeImage = ImageIO.read(new File("resources/bridge.png"));
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        g2d.drawImage(bridgeImage  ,16 * tileSize * scale , 3* tileSize*scale , this);
+        g2d.drawImage(bridgeImage  ,16 * tileSize * scale , 9* tileSize*scale , this);
+
+    }
+
     public void drawBullet(Graphics2D g2d){
         Bullet bullet = Level.getInstance().getTower().getBullet();
         if (bullet != null) {
@@ -259,10 +272,11 @@ public class GamePanel extends JPanel implements Runnable {
 
     //    drawBackground(g2d);
         g2d.drawImage(background, 0, 0, this);
-        drawCoin(g2d);
         drawAltar(g2d);
-        drawPlayer(g2d);
         drawEnmey(g2d);
+        drawBridge(g2d);
+        drawCoin(g2d);
+        drawPlayer(g2d);
         drawBullet(g2d);
         drawTower(g2d);
         drawHealth(g2d);

@@ -17,9 +17,9 @@ public class Player extends GameObject {
 
 
 
-    public Player() {
-        this.x = 0;
-        this.y = 2;
+    public Player(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
     

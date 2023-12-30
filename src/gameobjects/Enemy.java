@@ -14,29 +14,30 @@ public abstract class Enemy extends GameObject {
         if (x<0) {
             x++;
             return;
-        }
-        
-        if (x + 1 < Level.getInstance().getArena()[0].length && (Level.getInstance().getArena()[y][x + 1] == 1 || Level.getInstance().getArena()[y][x + 1] == 3)) {
+        } 
+        if (y - 1 >= 0 && (Level.getInstance().getArena()[y - 1][x] == 1 || Level.getInstance().getArena()[y - 1][x] == 3)) {
+            //go up
+            y -= speed;
+            goingUp = true;
+        } else if (x + 1 < Level.getInstance().getArena()[0].length && (Level.getInstance().getArena()[y][x + 1] == 1 || Level.getInstance().getArena()[y][x + 1] == 3)) {
             //go right
             x += speed;
             goingUp = false;
         } else if (y + 1 < Level.getInstance().getArena().length && !goingUp && (Level.getInstance().getArena()[y + 1][x] == 1 || Level.getInstance().getArena()[y + 1][x] == 3)) {
             //go down
             y += speed;   
-        } else if (y - 1 >= 0 && (Level.getInstance().getArena()[y - 1][x] == 1 || Level.getInstance().getArena()[y - 1][x] == 3)) {
-            //go up
-            y -= speed;
-            goingUp = true;
-        } else if (x - 1 >= 0 && (Level.getInstance().getArena()[y][x - 1] == 1 || Level.getInstance().getArena()[y][x - 1] == 3)) {
+        } 
+    }/*  else if (x - 1 >= 0 && (Level.getInstance().getArena()[y][x - 1] == 1 || Level.getInstance().getArena()[y][x - 1] == 3)) {
             //go left
             x -= speed;
             goingUp = false;
-        } 
-    }
+        } */
+    
+    
     
     public boolean isAtBase() {
         if (x < 0 ) return false;
-        if (Level.getInstance().getArena()[y][x] == 3) return true;
+        if (x >= Level.getInstance().getWidth()-1) return true;
         return false;
     }
 

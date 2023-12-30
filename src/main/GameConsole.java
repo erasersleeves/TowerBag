@@ -24,11 +24,11 @@ public class GameConsole {
         Iterator<Enemy> iterator = level.getWave().getEnemies().iterator();
         while (iterator.hasNext()) {
             Enemy enemy = iterator.next();
-            enemy.advance();
             if (enemy.isAtBase()) {
                 level.getPlayer().takeDamage(enemy.getDamage());
                 iterator.remove();
             }
+            enemy.advance();
             Enemy target = null;
             if (level.getTower().isInRange(enemy)) target = enemy;
             if (target != null) {
@@ -125,18 +125,16 @@ public class GameConsole {
                     // switch case to print out the arena
                     switch (level.getArena()[i][j]) {
                         case 0:
-                        case 4:
-                        case 5:
                             System.out.print("  ");
                             break;
                         case 1:
                             System.out.print("- ");
                             break;
-                        case 2:
-                            System.out.print("> ");
-                            break;
                         case 3:
-                            System.out.print("| ");
+                            System.out.print("# ");
+                            break;
+                        default:
+                            System.out.print("  ");
                             break;
                     }
                 }
@@ -144,7 +142,7 @@ public class GameConsole {
             }
             System.out.println();
         }
-        System.out.println("Kills : " + kills);
+        System.out.println("Kills : " + kills + " , width : " + level.getWidth() );
     }
 
     public static void loop() {
