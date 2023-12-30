@@ -43,9 +43,10 @@ public class GameConsole {
             
 
 
-        if (!currentWave.hasMoreEnemies()) {
+        if (currentWave.noMoreEnemies()) {
             // All enemies in the current wave have been spawned.
             // Replace currentWave with a new wave...
+            currentWave.generateNextWave();
         }
 
         // player collects coin
@@ -142,7 +143,7 @@ public class GameConsole {
             }
             System.out.println();
         }
-        System.out.println("Kills : " + kills + " , width : " + level.getWidth() );
+        System.out.println("Kills : " + kills + " , wave : " + level.getWave().getWaveNumber() );
     }
 
     public static void loop() {

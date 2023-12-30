@@ -54,6 +54,7 @@ public class Altar extends GameObject {
                 break;
         }
         player.decreaseMoney(3);
+        tower.lift();
     }
 
 

@@ -16,13 +16,13 @@ public class Main {
 
         //create ememy list
         List<Enemy> enemies = new ArrayList<>();
-        enemies.add(new Bat(0, 0));
-        enemies.add(new Bat(-3, 0));
-        enemies.add(new Bat(0, 11));
-        enemies.add(new Bat(-5, 11));
-        enemies.add(new Bat(-9, 11));
+        // enemies.add(new Bat(0, 0));
+        // enemies.add(new Bat(-3, 0));
+        // enemies.add(new Bat(0, 11));
+        // enemies.add(new Bat(-5, 11));
+        // enemies.add(new Bat(-9, 11));
 
-        //create wave
+        // //create wave
         demo.setWave(new EnemyWave(enemies));
         
         // tower creation
