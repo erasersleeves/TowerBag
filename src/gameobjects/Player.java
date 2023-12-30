@@ -35,7 +35,7 @@ public class Player extends GameObject {
     public void interact(Tower tower) {
         if (reaches(tower)) {
             if (tower.isLifted()) {
-                tower.drop();;
+                tower.drop();
             } else {
                 tower.lift();
             }
@@ -47,12 +47,11 @@ public class Player extends GameObject {
     public Image getImage() {
         BufferedImage img = null;
         try {
-            img = ImageIO.read(new File("resources/player.png"));
+            img = ImageIO.read(new File("resources/player.png")).getSubimage(0, 0, 32, 32);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Image scaledImg = img.getSubimage(0, 0, 16, 16).getScaledInstance(32, 32, Image.SCALE_SMOOTH);
-        return scaledImg;
+        return img;
     }
 
     public void moveUp() {

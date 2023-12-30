@@ -1,5 +1,6 @@
 package main;
 
+import world.EnemyWave;
 import world.Level;
 
 import java.util.Iterator;
@@ -10,7 +11,7 @@ public class GameConsole {
     static Level level = Level.getInstance();
     static private EnemyWave currentWave = level.getWave();
     static int kills = 0;
-    static boolean isPaused = false;
+    static GameState state = GameState.INGAME;
 
     public static void clearScreen() {
         System.out.print("\033[H\033[2J");
@@ -18,7 +19,7 @@ public class GameConsole {
     }
     
     public static void update() {
-        if (isPaused) return;
+        if (state != GameState.INGAME) return;
         // enemy wave
         Iterator<Enemy> iterator = level.getWave().getEnemies().iterator();
         while (iterator.hasNext()) {
@@ -56,13 +57,17 @@ public class GameConsole {
         }
 
         // trigger altar
-        if (level.getPlayer().getMoney() >= 5) level.getAltar().trigger(true);
+        if (level.getPlayer().getMoney() >= 3) level.getAltar().trigger(true);
         else level.getAltar().trigger(false);
 
         // player upgrades tower
-        if (!level.getTower().isLifted() && level.getTower().getX() == level.getAltar().getX() && level.getTower().getY() == level.getAltar().getY() && level.getPlayer().getMoney() >= 5) {
-            level.getAltar().upgrade(0);
-            level.getPlayer().decreaseMoney(5);
+        if (!level.getTower().isLifted() && level.getTower().reaches(level.getAltar()) && level.getPlayer().getMoney() >= 3) {
+            state = GameState.INALTAR;
+        }
+
+        // game over
+        if (level.getPlayer().getHealth() <= 0) {
+            state = GameState.GAMEOVER;
         }
         
     }
@@ -155,8 +160,12 @@ public class GameConsole {
         }
     }
 
-    public static void Pause() {
-        isPaused = !isPaused;
+    public static GameState getState() {
+        return state;
+    }
+
+    public static void setState(GameState state) {
+        GameConsole.state = state;
     }
 
 }

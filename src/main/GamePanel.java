@@ -19,8 +19,8 @@ public class GamePanel extends JPanel implements Runnable {
     int FPS = 60;
     Thread gameThread = new Thread(this);
     Player player = Level.getInstance().getPlayer();
-    int tileSize = 16;
-    int scale = 2;
+    int tileSize = 32;
+    int scale = 1;
     private BufferedImage background;
 
     KeyHandler keyH = new KeyHandler(player);
@@ -135,7 +135,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void drawPlayer(Graphics2D g2d) {
         if (player != null) {
-           g2d.drawImage(player.getImage(), player.getX() * tileSize * scale, player.getY() * tileSize * scale,
+           g2d.drawImage(player.getImage(), player.getX() * tileSize * scale, (player.getY()) * tileSize * scale,
                    tileSize * scale, tileSize * scale, this);
        }
     }
@@ -217,6 +217,40 @@ public class GamePanel extends JPanel implements Runnable {
 
     }
 
+    public void drawUpgradeScreen(Graphics2D g2d) {
+        Altar altar = Level.getInstance().getAltar();
+
+        int screenWidth = this.getWidth();
+        int screenHeight = this.getHeight();
+        int rectSize = 64;
+        int rectSpacing = 15;
+        int rectX = (screenWidth - (3 * rectSize + 2 * rectSpacing)) / 2;
+        int rectY = (screenHeight - rectSize) / 2;
+
+        
+
+        // Draw selection area around the first rectangle
+        g2d.setColor(Color.YELLOW);
+        g2d.fillRect((rectX-5) + altar.getIndex() * (rectSpacing + rectSize) , (rectY-5), rectSize+10, rectSize+10);
+
+        g2d.setColor(Color.RED);
+        g2d.fillRect(rectX, rectY, rectSize, rectSize);
+
+        g2d.setColor(Color.GREEN);
+        g2d.fillRect(rectX + rectSize + rectSpacing, rectY, rectSize, rectSize);
+
+        g2d.setColor(Color.BLUE);
+        g2d.fillRect(rectX + 2 * (rectSize + rectSpacing), rectY, rectSize, rectSize);
+    }
+
+    public void drawGameOver(Graphics2D g2d) {
+        g2d.setColor(Color.BLACK);
+        g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
+
+        g2d.setColor(Color.RED);
+        g2d.setFont(new Font("Consolas", Font.BOLD, 50));
+        g2d.drawString("GAME OVER", this.getWidth() / 2 - 150, this.getHeight() / 2);
+    }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -224,15 +258,17 @@ public class GamePanel extends JPanel implements Runnable {
        Graphics2D g2d = (Graphics2D) g;
 
     //    drawBackground(g2d);
-    g2d.drawImage(background, 0, 0, this);
+        g2d.drawImage(background, 0, 0, this);
         drawCoin(g2d);
         drawAltar(g2d);
-       drawPlayer(g2d);
-       drawEnmey(g2d);
+        drawPlayer(g2d);
+        drawEnmey(g2d);
         drawBullet(g2d);
-       drawTower(g2d);
+        drawTower(g2d);
         drawHealth(g2d);
         drawMoneyCounter(g2d);
+        if (GameConsole.getState() == GameState.INALTAR) drawUpgradeScreen(g2d);
+        if (GameConsole.getState() == GameState.GAMEOVER) drawGameOver(g2d);
     }
     
     @Override

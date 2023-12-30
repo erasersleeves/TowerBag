@@ -9,6 +9,7 @@ public class KeyHandler implements KeyListener {
     // key listener for player movement using WASD
     Player player;
     Tower tower = Level.getInstance().getTower();
+    Altar altar = Level.getInstance().getAltar();
 
     public KeyHandler(Player player) {
         this.player = player;
@@ -20,16 +21,40 @@ public class KeyHandler implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (GameConsole.isPaused) {
+        if (GameConsole.getState() == GameState.PAUSED) {
             switch (e.getKeyCode()) {
             case KeyEvent.VK_ESCAPE:
-                GameConsole.Pause();
+                GameConsole.setState(GameState.INGAME);
                 break;
             default:
                 break;
             }
             return;
         } 
+
+        if (GameConsole.getState() == GameState.INALTAR) {
+            switch (e.getKeyCode()) {
+                case KeyEvent.VK_A:
+                    altar.decreaseIndex();
+                    break;
+                case KeyEvent.VK_D:
+                    altar.increaseIndex();
+                    break;
+                case KeyEvent.VK_SPACE:
+                    altar.upgrade();
+                    GameConsole.setState(GameState.INGAME);
+                    break;
+                }
+            return;
+        }
+
+        if (GameConsole.getState() == GameState.GAMEOVER) {
+            switch (e.getKeyCode()) {
+                case KeyEvent.VK_SPACE:
+                    break;
+                }
+            return;
+        }
 
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W:
@@ -52,7 +77,7 @@ public class KeyHandler implements KeyListener {
                 player.interact(tower);
                 break;
             case KeyEvent.VK_ESCAPE:
-                GameConsole.Pause();
+                GameConsole.setState(GameState.PAUSED);
                 break;
             default:
                 break;

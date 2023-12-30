@@ -1,7 +1,6 @@
 package world;
 
 import gameobjects.*;
-import main.EnemyWave;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
