@@ -1,9 +1,13 @@
 package main;
 
-import gameobjects.*;
-import world.*;
+import view.GamePanel;
 
 import javax.swing.*;
+
+import model.GameConsole;
+import model.gameobjects.*;
+import model.world.*;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -16,11 +20,6 @@ public class Main {
 
         //create ememy list
         List<Enemy> enemies = new ArrayList<>();
-        // enemies.add(new Bat(0, 0));
-        // enemies.add(new Bat(-3, 0));
-        // enemies.add(new Bat(0, 11));
-        // enemies.add(new Bat(-5, 11));
-        // enemies.add(new Bat(-9, 11));
 
         // //create wave
         demo.setWave(new EnemyWave(enemies));

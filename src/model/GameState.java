@@ -1,4 +1,4 @@
-package main;
+package model;
 
 public enum GameState {
     PAUSED,
@@ -8,7 +8,7 @@ public enum GameState {
     WIN,
     MENU,
     TITLESCREEN,
-    SPLASHSCREEN,
+    CREDITS,
     PITRIFIED,
     GREEDY
 }

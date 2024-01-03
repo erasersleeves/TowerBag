@@ -1,18 +1,19 @@
-package main;
+package view;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import gameobjects.*;
-import world.*;
-
+import controller.KeyHandler;
+import controller.Menu;
+import model.GameConsole;
+import model.GameState;
+import model.gameobjects.*;
+import model.world.*;
 
 import java.util.Iterator;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.Random;
 
@@ -232,7 +233,7 @@ public class GamePanel extends JPanel implements Runnable {
         int screenWidth = this.getWidth();
         int screenHeight = this.getHeight();
         int rectSize = 64;
-        int rectSpacing = 15;
+        int rectSpacing = 30;
         int rectX = (screenWidth - (3 * rectSize + 2 * rectSpacing)) / 2;
         int rectY = (screenHeight - rectSize) / 2;
         
@@ -240,17 +241,25 @@ public class GamePanel extends JPanel implements Runnable {
         
 
         // Draw selection area around the first rectangle
-        g2d.setColor(Color.YELLOW);
+        g2d.setColor(Color.WHITE);
         g2d.fillRect((rectX-5) + altar.getIndex() * (rectSpacing + rectSize) , (rectY-5), rectSize+10, rectSize+10);
 
-        g2d.setColor(Color.RED);
-        g2d.fillRect(rectX, rectY, rectSize, rectSize);
+        Image range = new ImageIcon("resources/range.png").getImage();
+        g2d.drawImage(range, rectX, rectY, rectSize, rectSize, this);
 
-        g2d.setColor(Color.GREEN);
-        g2d.fillRect(rectX + rectSize + rectSpacing, rectY, rectSize, rectSize);
+        Image damage = new ImageIcon("resources/damage.png").getImage();
+        g2d.drawImage(damage, rectX + rectSize + rectSpacing, rectY, rectSize, rectSize, this);
 
-        g2d.setColor(Color.BLUE);
-        g2d.fillRect(rectX + 2 * (rectSize + rectSpacing), rectY, rectSize, rectSize);
+        Image cooldown = new ImageIcon("resources/cooldown.png").getImage();
+        g2d.drawImage(cooldown, rectX + 2 * (rectSize + rectSpacing), rectY, rectSize, rectSize, this);
+
+        // Draw text on the menu
+        g2d.setColor(Color.WHITE);
+        g2d.setFont(new Font("Consolas", Font.PLAIN, 18));
+        g2d.drawString("Choose what to upgrade", rectX + 5, rectY - 20);
+        g2d.drawString("Range", rectX + 5, rectY + rectSize + 20);
+        g2d.drawString("Damage", rectX + rectSize + rectSpacing + 5, rectY + rectSize + 20);
+        g2d.drawString("Cooldown", rectX + 2 * (rectSize + rectSpacing) - 5, rectY + rectSize + 20);
     }
 
     public void greedyEnding(Graphics2D g2d){
@@ -271,7 +280,7 @@ public class GamePanel extends JPanel implements Runnable {
         g2d.drawString("GAME OVER", this.getWidth() / 2 - 150, this.getHeight() / 2);
     }
 
-    public void displaySplashScreen(Graphics2D g2d) {
+    public void displayCredits(Graphics2D g2d) {
         g2d.setColor(Color.decode("#8B1538"));
         g2d.fillRect(0, 0, getWidth(), getHeight());
         BufferedImage splashImage = null;
@@ -279,7 +288,7 @@ public class GamePanel extends JPanel implements Runnable {
             // Load the splash screen image
             splashImage = ImageIO.read(new File("resources/logo.png"));
             // Draw the image on the center of the panel
-            g2d.drawImage(splashImage, getWidth()/2 - splashImage.getWidth()/2, getHeight()/2 - splashImage.getHeight()/2, splashImage.getWidth(), splashImage.getHeight(), this);
+            g2d.drawImage(splashImage, getWidth()/2 - splashImage.getWidth()/2, splashImage.getHeight()/2, splashImage.getWidth(), splashImage.getHeight(), this);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -333,7 +342,7 @@ public class GamePanel extends JPanel implements Runnable {
         g2d.setColor(Color.WHITE);
         g2d.setFont(new Font("Consolas", Font.PLAIN, 18));
         g2d.drawString("New Game", rectX + 40, rectY + 20);
-        g2d.drawString("Load Game", rectX + 40, rectY + 20 + rectSize + rectSpacing);
+        g2d.drawString("Credits", rectX + 40, rectY + 20 + rectSize + rectSpacing);
         g2d.drawString("Exit", rectX + 40, rectY + 20 + 2 * (rectSize + rectSpacing));
     }
 
@@ -351,10 +360,11 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
        
-        if (GameConsole.getState() == GameState.SPLASHSCREEN) {
-            displaySplashScreen(g2d);
+        if (GameConsole.getState() == GameState.CREDITS) {
+            displayCredits(g2d);
             return;
         }
+
         if (GameConsole.getState() == GameState.GAMEOVER) {
             drawGameOver(g2d);
             return;

@@ -1,10 +1,10 @@
-package world;
-
-import gameobjects.*;
+package model.world;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+
+import model.gameobjects.*;
 
 public class Level {
     private int height;

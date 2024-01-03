@@ -1,5 +1,5 @@
-package gameobjects;
-import world.Level;
+package model.gameobjects;
+import model.world.Level;
 
 public class Coin extends GameObject{
     private int value;

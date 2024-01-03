@@ -1,18 +1,17 @@
-package main;
-
-import world.EnemyWave;
-import world.Level;
-
+package model;
 
 import java.util.Iterator;
 
-import gameobjects.*;
+import controller.Menu;
+import model.gameobjects.*;
+import model.world.EnemyWave;
+import model.world.Level;
 
 public class GameConsole {
     static Level level = Level.getInstance();
     static Menu menu = new Menu();
     static private EnemyWave currentWave = level.getWave();
-    static GameState state = GameState.SPLASHSCREEN;
+    static GameState state = GameState.TITLESCREEN;
 
     public static Menu getMenu() {
         return menu;
@@ -65,11 +64,11 @@ public class GameConsole {
         }
 
         // trigger altar
-        if (level.getPlayer().getMoney() >= 3) level.getAltar().trigger(true);
+        if (level.getPlayer().getMoney() >= 1) level.getAltar().trigger(true);
         else level.getAltar().trigger(false);
 
         // player upgrades tower
-        if (!level.getTower().isLifted() && level.getTower().reaches(level.getAltar()) && level.getPlayer().getMoney() >= 3) {
+        if (!level.getTower().isLifted() && level.getTower().reaches(level.getAltar()) && level.getPlayer().getMoney() >= 1) {
             state = GameState.INALTAR;
         }
 

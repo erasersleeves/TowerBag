@@ -1,4 +1,4 @@
-package gameobjects;
+package model.gameobjects;
 
 import java.awt.*;
 

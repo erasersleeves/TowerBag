@@ -1,4 +1,7 @@
-package main;
+package controller;
+
+import model.GameConsole;
+import model.GameState;
 
 public class Menu {
     private int index;
@@ -42,7 +45,7 @@ public class Menu {
                 GameConsole.setState(GameState.INGAME);
                 break;
             case 1:
-                GameConsole.setState(GameState.INGAME);
+                GameConsole.setState(GameState.CREDITS);
                 break;
             case 2:
                 System.exit(0);

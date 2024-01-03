@@ -1,6 +1,6 @@
-package gameobjects;
+package model.gameobjects;
 
-import world.Level;
+import model.world.Level;
 
 public class Altar extends GameObject {
     private boolean triggered = false;

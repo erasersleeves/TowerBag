@@ -1,10 +1,11 @@
-package world;
+package model.world;
 
-import gameobjects.Bat;
-import gameobjects.Enemy;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+
+import model.gameobjects.Bat;
+import model.gameobjects.Enemy;
 
 
 public class EnemyWave {

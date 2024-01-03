@@ -1,13 +1,13 @@
-package gameobjects;
+package model.gameobjects;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import world.Level;
-
 import javax.imageio.ImageIO;
+
+import model.world.Level;
 
 public class Player extends GameObject {
     private int health = 5;

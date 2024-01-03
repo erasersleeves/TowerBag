@@ -1,7 +1,8 @@
-package gameobjects;
-import world.Level;
-
+package model.gameobjects;
 import javax.imageio.ImageIO;
+
+import model.world.Level;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -41,7 +42,6 @@ public class Tower extends GameObject{
         }
         cooldownRemaining--;
     }
-
 
     public void lift() {
         isLifted = true;

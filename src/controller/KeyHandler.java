@@ -1,9 +1,12 @@
-package main;
+package controller;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import gameobjects.*;
-import world.Level;
+
+import model.GameConsole;
+import model.GameState;
+import model.gameobjects.*;
+import model.world.Level;
 
 public class KeyHandler implements KeyListener {
     // key listener for player movement using WASD
@@ -22,11 +25,10 @@ public class KeyHandler implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-
-        if (GameConsole.getState() == GameState.SPLASHSCREEN) {
+        if (GameConsole.getState() == GameState.CREDITS){
             switch (e.getKeyCode()) {
-                case KeyEvent.VK_SPACE:
-                    GameConsole.setState(GameState.TITLESCREEN);
+                case KeyEvent.VK_ESCAPE:
+                    GameConsole.setState(GameState.MENU);
                     break;
                 }
             return;

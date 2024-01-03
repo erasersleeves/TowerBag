@@ -1,7 +1,7 @@
-package gameobjects;
+package model.gameobjects;
 import java.awt.Image;
 
-import world.Level;
+import model.world.Level;
 
 public abstract class Enemy extends GameObject {
     protected int health;
