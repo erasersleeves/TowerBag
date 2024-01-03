@@ -14,6 +14,8 @@ public class Player extends GameObject {
     private int money = 0;
     private int score = 0;
     public int speed = 1;
+    private int kills = 0;
+    private boolean hasMoved = false;
 
 
 
@@ -31,6 +33,13 @@ public class Player extends GameObject {
 		return health;
 	}
 
+    public void increaseKills() {
+        kills++;
+    }
+
+    public int getKills() {
+        return kills;
+    }
  
     public void interact(Tower tower) {
         if (reaches(tower)) {
@@ -57,24 +66,28 @@ public class Player extends GameObject {
     public void moveUp() {
         if (!Level.getInstance().isSolid(x, y - speed)) {
             y -= speed;
+            hasMoved = true;
         }
     }
 
     public void moveDown() {
         if (!Level.getInstance().isSolid(x, y + speed)) {
             y += speed;
+            hasMoved = true;
         }
     }
 
     public void moveLeft() {
         if (!Level.getInstance().isSolid(x - speed, y)) {
             x -= speed;
+            hasMoved = true;
         }
     }
 
     public void moveRight() {
         if (!Level.getInstance().isSolid(x + speed, y)) {
             x += speed;
+            hasMoved = true;
         }
     }
 
@@ -88,5 +101,9 @@ public class Player extends GameObject {
 
     public void decreaseMoney(int i) {
         money -= i;
+    }
+
+    public boolean hasMoved() {
+        return hasMoved;
     }
 }

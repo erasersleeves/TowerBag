@@ -3,15 +3,22 @@ package main;
 import world.EnemyWave;
 import world.Level;
 
+
 import java.util.Iterator;
 
 import gameobjects.*;
 
 public class GameConsole {
     static Level level = Level.getInstance();
+    static Menu menu = new Menu();
     static private EnemyWave currentWave = level.getWave();
-    static int kills = 0;
-    static GameState state = GameState.INGAME;
+    static GameState state = GameState.SPLASHSCREEN;
+
+    public static Menu getMenu() {
+        return menu;
+    }
+
+
 
     public static void clearScreen() {
         System.out.print("\033[H\033[2J");
@@ -36,7 +43,7 @@ public class GameConsole {
                 if (target.getHealth() <= 0) {
                     // remove target
                     iterator.remove();
-                    kills++;
+                    level.getPlayer().increaseKills();
                 }
             }   
         }
@@ -68,6 +75,14 @@ public class GameConsole {
 
         // game over
         if (level.getPlayer().getHealth() <= 0) {
+            if (!level.getPlayer().hasMoved()){
+                state = GameState.PITRIFIED;
+                return;
+            }
+            if (level.getPlayer().getKills() == 0 && level.getPlayer().getMoney() > 3) {
+                state = GameState.GREEDY;
+                return;
+            }
             state = GameState.GAMEOVER;
         }
         
@@ -143,16 +158,16 @@ public class GameConsole {
             }
             System.out.println();
         }
-        System.out.println("Kills : " + kills + " , wave : " + level.getWave().getWaveNumber() );
+        System.out.println("Kills : " + level.getPlayer().getKills() + " , wave : " + level.getWave().getWaveNumber() );
     }
 
     public static void loop() {
         while (true) {
-            clearScreen();
-            print();
+            // clearScreen();
+            // print();
             update();
             try {
-                Thread.sleep(500);
+                Thread.sleep(400);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

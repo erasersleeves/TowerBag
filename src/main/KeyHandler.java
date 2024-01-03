@@ -10,6 +10,7 @@ public class KeyHandler implements KeyListener {
     Player player;
     Tower tower = Level.getInstance().getTower();
     Altar altar = Level.getInstance().getAltar();
+    Menu  menu = GameConsole.getMenu();
 
     public KeyHandler(Player player) {
         this.player = player;
@@ -21,6 +22,40 @@ public class KeyHandler implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+
+        if (GameConsole.getState() == GameState.SPLASHSCREEN) {
+            switch (e.getKeyCode()) {
+                case KeyEvent.VK_SPACE:
+                    GameConsole.setState(GameState.TITLESCREEN);
+                    break;
+                }
+            return;
+        }
+
+        if (GameConsole.getState() == GameState.TITLESCREEN) {
+            switch (e.getKeyCode()) {
+                case KeyEvent.VK_SPACE:
+                    GameConsole.setState(GameState.MENU);
+                    break;
+                }
+            return;
+        }
+
+        if (GameConsole.getState() == GameState.MENU) {
+            switch (e.getKeyCode()) {
+                case KeyEvent.VK_W:
+                    menu.moveUp();
+                    break;
+                case KeyEvent.VK_S:
+                    menu.moveDown();
+                    break;
+                case KeyEvent.VK_SPACE:
+                    menu.mainSelect();
+                    break;
+                }
+            return;
+        }
+
         if (GameConsole.getState() == GameState.PAUSED) {
             switch (e.getKeyCode()) {
             case KeyEvent.VK_ESCAPE:

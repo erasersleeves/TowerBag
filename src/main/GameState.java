@@ -7,6 +7,8 @@ public enum GameState {
     GAMEOVER,
     WIN,
     MENU,
-    TITLESCREEN
-
+    TITLESCREEN,
+    SPLASHSCREEN,
+    PITRIFIED,
+    GREEDY
 }

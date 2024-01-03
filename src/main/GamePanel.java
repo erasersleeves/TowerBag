@@ -10,9 +10,12 @@ import world.*;
 import java.util.Iterator;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Random;
+
 
 
 public class GamePanel extends JPanel implements Runnable {
@@ -38,6 +41,8 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2dBackground = background.createGraphics();
         drawBackground(g2dBackground);
         g2dBackground.dispose();
+
+        
     }
 
     public static GamePanel getInstance() {
@@ -52,7 +57,7 @@ public class GamePanel extends JPanel implements Runnable {
         gameThread.start();
     }
 
-    public void update() {        
+    public void update() {
     }
 
     public void drawBackground(Graphics2D g2d) {
@@ -239,6 +244,7 @@ public class GamePanel extends JPanel implements Runnable {
         int rectSpacing = 15;
         int rectX = (screenWidth - (3 * rectSize + 2 * rectSpacing)) / 2;
         int rectY = (screenHeight - rectSize) / 2;
+        
 
         
 
@@ -256,6 +262,15 @@ public class GamePanel extends JPanel implements Runnable {
         g2d.fillRect(rectX + 2 * (rectSize + rectSpacing), rectY, rectSize, rectSize);
     }
 
+    public void greedyEnding(Graphics2D g2d){
+        g2d.setColor(Color.BLACK);
+        g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
+
+        g2d.setColor(Color.RED);
+        g2d.setFont(new Font("Consolas", Font.BOLD, 50));
+        g2d.drawString("GREEDY", this.getWidth() / 2 - 150, this.getHeight() / 2);
+    }
+
     public void drawGameOver(Graphics2D g2d) {
         g2d.setColor(Color.BLACK);
         g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
@@ -265,12 +280,112 @@ public class GamePanel extends JPanel implements Runnable {
         g2d.drawString("GAME OVER", this.getWidth() / 2 - 150, this.getHeight() / 2);
     }
 
+    public void displaySplashScreen(Graphics2D g2d) {
+        g2d.setColor(Color.decode("#8B1538"));
+        g2d.fillRect(0, 0, getWidth(), getHeight());
+        BufferedImage splashImage = null;
+        try {
+            // Load the splash screen image
+            splashImage = ImageIO.read(new File("resources/logo.png"));
+            // Draw the image on the center of the panel
+            g2d.drawImage(splashImage, getWidth()/2 - splashImage.getWidth()/2, getHeight()/2 - splashImage.getHeight()/2, splashImage.getWidth(), splashImage.getHeight(), this);
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+    }
+
+    public void displayTitleScreen(Graphics2D g2d){
+        BufferedImage titleImage = null;
+        try {
+            // Load the splash screen image
+            titleImage = ImageIO.read(new File("resources/title.png"));
+            // Draw the image on the panel
+            g2d.drawImage(titleImage, 0, 0, titleImage.getWidth(), titleImage.getHeight(), this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        g2d.setColor(Color.WHITE);
+        g2d.setFont(new Font("Consolas", Font.BOLD, 18));
+        g2d.drawString("Press Space to Start", getWidth()/2 - 92, getHeight() - 50);
+        
+    }
+
+    public void displayMenu(Graphics2D g2d) {
+        Menu menu = GameConsole.getMenu();
+        BufferedImage menuImage = null;
+        try {
+            // Load the menu image
+            menuImage = ImageIO.read(new File("resources/title.png"));
+            // Draw the image on the panel
+            g2d.drawImage(menuImage, 0, 0, menuImage.getWidth(), menuImage.getHeight(), this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        int screenWidth = this.getWidth();
+        int screenHeight = this.getHeight();
+        int rectSize = 32;
+        int rectSpacing = 10;
+        int rectX = (screenWidth - (3 * rectSize + 2 * rectSpacing)) / 2;
+        int rectY = (screenHeight) / 2;
+
+        
+
+        // Draw selection area around the first rectangle
+        
+        g2d.drawImage(player.getImage(), rectX - 30, rectY + menu.getIndex() * (rectSize + rectSpacing), player.getImage().getWidth(this), player.getImage().getHeight(this), this);
+
+        // Draw text on the menu
+        g2d.setColor(Color.WHITE);
+        g2d.setFont(new Font("Consolas", Font.PLAIN, 18));
+        g2d.drawString("New Game", rectX + 40, rectY + 20);
+        g2d.drawString("Load Game", rectX + 40, rectY + 20 + rectSize + rectSpacing);
+        g2d.drawString("Exit", rectX + 40, rectY + 20 + 2 * (rectSize + rectSpacing));
+    }
+
+    public void petrifiedEnding(Graphics2D g2d){
+                g2d.setColor(Color.BLACK);
+        g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
+
+        g2d.setColor(Color.RED);
+        g2d.setFont(new Font("Consolas", Font.BOLD, 50));
+        g2d.drawString("PITRIFIED", this.getWidth() / 2 - 150, this.getHeight() / 2);
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
-       super.paintComponent(g);
-       Graphics2D g2d = (Graphics2D) g;
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+       
+        if (GameConsole.getState() == GameState.SPLASHSCREEN) {
+            displaySplashScreen(g2d);
+            return;
+        }
+        if (GameConsole.getState() == GameState.GAMEOVER) {
+            drawGameOver(g2d);
+            return;
+        }
+        if (GameConsole.getState() == GameState.TITLESCREEN) {
+            displayTitleScreen(g2d);
+            return;
+        }
+        if (GameConsole.getState() == GameState.MENU) {
+            displayMenu(g2d);
+            return;
+        }
+        if (GameConsole.getState() == GameState.PITRIFIED) {
+            petrifiedEnding(g2d);
+            return;
+        }
+        if (GameConsole.getState() == GameState.GREEDY) {
+            greedyEnding(g2d);
+            return;
+        }
 
-    //    drawBackground(g2d);
+
         g2d.drawImage(background, 0, 0, this);
         drawAltar(g2d);
         drawEnmey(g2d);
@@ -281,17 +396,17 @@ public class GamePanel extends JPanel implements Runnable {
         drawTower(g2d);
         drawHealth(g2d);
         drawMoneyCounter(g2d);
+
         if (GameConsole.getState() == GameState.INALTAR) drawUpgradeScreen(g2d);
-        if (GameConsole.getState() == GameState.GAMEOVER) drawGameOver(g2d);
     }
-    
+
     @Override
     public void run() {
         // game loop
         double drawInterval = 1000000000.0 / FPS;
         double nextDrawTime = System.nanoTime() + drawInterval;
         while (gameThread != null) {
-//            update();
+            update();
             repaint();
             double delta = nextDrawTime - System.nanoTime();
             if (delta > 0) {
