@@ -105,10 +105,7 @@ public class GameConsole {
                     if (level.getTower().getX() == j && level.getTower().getY() == i) {
                         System.out.print("T ");
                         elementFound = true;
-                    } else if (level.getTower().getBullet() != null && level.getTower().getBullet().getX() == j && level.getTower().getBullet().getY() == i) {
-                        System.out.print(". ");
-                        elementFound = true;
-                    }
+                    } 
                 }
 
                 // check if there is an level.getCoin() at the current position

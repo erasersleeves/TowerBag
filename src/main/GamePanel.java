@@ -167,15 +167,6 @@ public class GamePanel extends JPanel implements Runnable {
 
     }
 
-    public void drawBullet(Graphics2D g2d){
-        Bullet bullet = Level.getInstance().getTower().getBullet();
-        if (bullet != null) {
-            Image bulletImage = bullet.getImage();
-            int bulletX = bullet.getX() * tileSize * scale + tileSize * scale / 2 - bulletImage.getWidth(null) / 2;
-            int bulletY = bullet.getY() * tileSize * scale + tileSize * scale / 2 - bulletImage.getHeight(null) / 2;
-            g2d.drawImage(bulletImage, bulletX, bulletY, bulletImage.getWidth(null), bulletImage.getHeight(null), this);
-        }
-    }
 
     public void drawTower(Graphics2D g2d) {
         Tower tower = Level.getInstance().getTower();
@@ -392,7 +383,6 @@ public class GamePanel extends JPanel implements Runnable {
         drawBridge(g2d);
         drawCoin(g2d);
         drawPlayer(g2d);
-        drawBullet(g2d);
         drawTower(g2d);
         drawHealth(g2d);
         drawMoneyCounter(g2d);

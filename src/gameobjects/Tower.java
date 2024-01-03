@@ -13,7 +13,6 @@ public class Tower extends GameObject{
     private int damage;
     private int cooldown;
     private int cooldownRemaining;
-    private Bullet bullet;
 
     private boolean isLifted = false;
 
@@ -43,9 +42,6 @@ public class Tower extends GameObject{
         cooldownRemaining--;
     }
 
-    public Bullet getBullet() {
-        return bullet;
-    }
 
     public void lift() {
         isLifted = true;
