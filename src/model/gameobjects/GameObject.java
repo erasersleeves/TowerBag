@@ -1,7 +1,5 @@
 package model.gameobjects;
 
-import java.awt.*;
-
 public abstract class GameObject {
     protected int x;
     protected int y;

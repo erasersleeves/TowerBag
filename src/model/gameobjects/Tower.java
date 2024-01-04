@@ -1,13 +1,6 @@
 package model.gameobjects;
-import javax.imageio.ImageIO;
 
 import model.world.Level;
-
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
 
 public class Tower extends GameObject{
     private int range;
@@ -51,15 +44,6 @@ public class Tower extends GameObject{
         isLifted = false;
     }
 
-    public Image getImage() {
-        BufferedImage img = null;
-        try {
-            img = ImageIO.read(new File("resources/tower.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return img;
-    }
 
     public boolean isLifted() {
         return isLifted;

@@ -1,5 +1,4 @@
 package model.gameobjects;
-import java.awt.Image;
 
 import model.world.Level;
 
@@ -27,11 +26,7 @@ public abstract class Enemy extends GameObject {
             //go down
             y += speed;   
         } 
-    }/*  else if (x - 1 >= 0 && (Level.getInstance().getArena()[y][x - 1] == 1 || Level.getInstance().getArena()[y][x - 1] == 3)) {
-            //go left
-            x -= speed;
-            goingUp = false;
-        } */
+    }
     
     
     
@@ -43,9 +38,6 @@ public abstract class Enemy extends GameObject {
 
     public void takeDamage(int damage) {
         health -= damage;
-        if (health <= 0) {
-            //delete bat
-        }
     }
 
     public int getHealth() {
@@ -60,5 +52,4 @@ public abstract class Enemy extends GameObject {
         return damage;
     }
 
-    public abstract Image getImage();
 }

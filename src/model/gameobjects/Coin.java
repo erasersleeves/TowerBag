@@ -3,7 +3,6 @@ import model.world.Level;
 
 public class Coin extends GameObject{
     private int value;
-    private Level level;
 
     public Coin(){
         //spawn at free tile (equals 0)
@@ -17,10 +16,6 @@ public class Coin extends GameObject{
         this.x = x;
         this.y = y;
         this.value = 1;
-    }
-
-    public void setLevel(Level level) {
-        this.level = level;
     }
 
     public int getValue() {

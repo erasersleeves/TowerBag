@@ -16,16 +16,4 @@ public class Bat extends Enemy {
         this.damage = 1;
     }
 
-    @Override
-    public Image getImage() {
-        BufferedImage img = null;
-        try {
-            img = ImageIO.read(new File("resources/bat.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Image scaledImg = img.getSubimage(0, 0, 16, 16).getScaledInstance(32, 32, Image.SCALE_SMOOTH);
-        return scaledImg;
-    }
-
 }

@@ -140,17 +140,29 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void drawPlayer(Graphics2D g2d) {
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File("resources/player.png")).getSubimage(0, 0, 32, 32);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         if (player != null) {
-           g2d.drawImage(player.getImage(), player.getX() * tileSize * scale, (player.getY()) * tileSize * scale,
+           g2d.drawImage(img, player.getX() * tileSize * scale, (player.getY()) * tileSize * scale,
                    tileSize * scale, tileSize * scale, this);
        }
     }
 
     public void drawEnmey(Graphics2D g2d) {
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File("resources/bat.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Iterator<Enemy> iterator = Level.getInstance().getWave().getEnemies().iterator();
         while (iterator.hasNext()) {
             Enemy enemy = iterator.next();
-            g2d.drawImage(enemy.getImage(), enemy.getX() * tileSize * scale, enemy.getY() * tileSize * scale,
+            g2d.drawImage(img, enemy.getX() * tileSize * scale, enemy.getY() * tileSize * scale,
                     tileSize * scale, tileSize * scale, this);
         }
     }
@@ -160,7 +172,6 @@ public class GamePanel extends JPanel implements Runnable {
         try {
             bridgeImage = ImageIO.read(new File("resources/bridge.png"));
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         g2d.drawImage(bridgeImage  ,16 * tileSize * scale , 3* tileSize*scale , this);
@@ -171,8 +182,14 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void drawTower(Graphics2D g2d) {
         Tower tower = Level.getInstance().getTower();
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File("resources/tower.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         if (tower == null) return;
-        g2d.drawImage(tower.getImage(), tower.getX() * tileSize * scale, (tower.getY() - 1) * tileSize * scale, tileSize * scale, tileSize * scale * 2, this);
+        g2d.drawImage(img, tower.getX() * tileSize * scale, (tower.getY() - 1) * tileSize * scale, tileSize * scale, tileSize * scale * 2, this);
         
         if (tower.isLifted()){
     
@@ -221,7 +238,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         g2d.drawImage(coinImage, coinX, coinY, coinImage.getWidth(null), coinImage.getHeight(null), this);
 
-        g2d.setFont(new Font("Consolas", Font.BOLD, 15));
+        g2d.setFont(new Font("Consolas", Font.TRUETYPE_FONT, 15));
         g2d.setColor(Color.LIGHT_GRAY);
         g2d.drawString(" x " + money, coinX + 15, coinY + 15);
 
@@ -255,7 +272,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         // Draw text on the menu
         g2d.setColor(Color.WHITE);
-        g2d.setFont(new Font("Consolas", Font.PLAIN, 18));
+        g2d.setFont(new Font("Consolas", Font.TRUETYPE_FONT, 15));
         g2d.drawString("Choose what to upgrade", rectX + 5, rectY - 20);
         g2d.drawString("Range", rectX + 5, rectY + rectSize + 20);
         g2d.drawString("Damage", rectX + rectSize + rectSpacing + 5, rectY + rectSize + 20);
@@ -267,7 +284,7 @@ public class GamePanel extends JPanel implements Runnable {
         g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
 
         g2d.setColor(Color.RED);
-        g2d.setFont(new Font("Consolas", Font.BOLD, 50));
+        g2d.setFont(new Font("Consolas", Font.TRUETYPE_FONT, 50));
         g2d.drawString("GREEDY", this.getWidth() / 2 - 150, this.getHeight() / 2);
     }
 
@@ -276,19 +293,42 @@ public class GamePanel extends JPanel implements Runnable {
         g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
 
         g2d.setColor(Color.RED);
-        g2d.setFont(new Font("Consolas", Font.BOLD, 50));
+        g2d.setFont(new Font("Consolas", Font.TRUETYPE_FONT, 50));
         g2d.drawString("GAME OVER", this.getWidth() / 2 - 150, this.getHeight() / 2);
     }
 
     public void displayCredits(Graphics2D g2d) {
-        g2d.setColor(Color.decode("#8B1538"));
-        g2d.fillRect(0, 0, getWidth(), getHeight());
+        BufferedImage titleImage = null;
+        try {
+            // Load the splash screen image
+            titleImage = ImageIO.read(new File("resources/title.png"));
+            // Draw the image on the panel
+            g2d.drawImage(titleImage, 0, 0, titleImage.getWidth(), titleImage.getHeight(), null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        g2d.setColor(Color.WHITE);
+        g2d.setFont(new Font("Consolas", Font.TRUETYPE_FONT, 15));
+        String text1 = "This game was designed and developed by:";
+        String text2 = "Yacine Benmeziane & Adjlout Amazigh : Binome 48";
+        String text3 = "POOIG 2023/2024 © All rights reserved";
+
+        int text1Width = g2d.getFontMetrics().stringWidth(text1);
+        g2d.drawString(text1, (getWidth() - text1Width) / 2, getHeight() - 200);
+
+        int text2Width = g2d.getFontMetrics().stringWidth(text2);
+        g2d.drawString(text2, (getWidth() - text2Width) / 2, getHeight() - 150);
+
+        int text3Width = g2d.getFontMetrics().stringWidth(text3);
+        g2d.drawString(text3, (getWidth() - text3Width) / 2, getHeight() - 100);
         BufferedImage splashImage = null;
+
         try {
             // Load the splash screen image
             splashImage = ImageIO.read(new File("resources/logo.png"));
             // Draw the image on the center of the panel
-            g2d.drawImage(splashImage, getWidth()/2 - splashImage.getWidth()/2, splashImage.getHeight()/2, splashImage.getWidth(), splashImage.getHeight(), this);
+            g2d.drawImage(splashImage, getWidth()/2 - splashImage.getWidth()/2, getHeight() - splashImage.getHeight() , splashImage.getWidth(),  splashImage.getHeight(), null);
             
         } catch (IOException e) {
             e.printStackTrace();
@@ -308,7 +348,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
         g2d.setColor(Color.WHITE);
-        g2d.setFont(new Font("Consolas", Font.BOLD, 18));
+        g2d.setFont(new Font("Consolas", Font.TRUETYPE_FONT, 15));
         g2d.drawString("Press Space to Start", getWidth()/2 - 92, getHeight() - 50);
         
     }
@@ -335,23 +375,29 @@ public class GamePanel extends JPanel implements Runnable {
         
 
         // Draw selection area around the first rectangle
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File("resources/player.png")).getSubimage(0, 0, 32, 32);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         
-        g2d.drawImage(player.getImage(), rectX - 30, rectY + menu.getIndex() * (rectSize + rectSpacing), player.getImage().getWidth(this), player.getImage().getHeight(this), this);
+        g2d.drawImage(img, rectX - 30, rectY + menu.getIndex() * (rectSize + rectSpacing), img.getWidth(this), img.getHeight(this), this);
 
         // Draw text on the menu
         g2d.setColor(Color.WHITE);
-        g2d.setFont(new Font("Consolas", Font.PLAIN, 18));
+        g2d.setFont(new Font("Consolas", Font.TRUETYPE_FONT, 15));
         g2d.drawString("New Game", rectX + 40, rectY + 20);
         g2d.drawString("Credits", rectX + 40, rectY + 20 + rectSize + rectSpacing);
         g2d.drawString("Exit", rectX + 40, rectY + 20 + 2 * (rectSize + rectSpacing));
     }
 
     public void petrifiedEnding(Graphics2D g2d){
-                g2d.setColor(Color.BLACK);
+        g2d.setColor(Color.BLACK);
         g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
 
         g2d.setColor(Color.RED);
-        g2d.setFont(new Font("Consolas", Font.BOLD, 50));
+        g2d.setFont(new Font("Consolas", Font.TRUETYPE_FONT, 50));
         g2d.drawString("PITRIFIED", this.getWidth() / 2 - 150, this.getHeight() / 2);
     }
 
