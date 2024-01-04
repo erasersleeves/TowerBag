@@ -118,7 +118,9 @@ public class GamePanel extends JPanel implements Runnable {
     public void drawCoin(Graphics2D g2d) {
         Coin coin = Level.getInstance().getCoin();
         if (coin != null) {
-            Image coinImage = new ImageIcon("resources/coin.png").getImage();
+            Image coinImage = null;
+            if (coin.getValue() == 1) coinImage = new ImageIcon("resources/coin.png").getImage();
+            else coinImage = new ImageIcon("resources/gold.png").getImage();
             int scaledWidth = tileSize * scale / 2;
             int scaledHeight = tileSize * scale / 2;
             int coinX = coin.getX() * tileSize * scale + (tileSize * scale - scaledWidth) / 2;
@@ -241,7 +243,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         g2d.setFont(new Font("Consolas", Font.BOLD, 12));
         g2d.setColor(Color.LIGHT_GRAY);
-        g2d.drawString(" x " + money + "/" + fee, coinX + 15, coinY + 15);
+        g2d.drawString(" x" + money + "/" + fee, coinX + 15, coinY + 15);
 
     }
 

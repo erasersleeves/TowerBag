@@ -58,7 +58,7 @@ public class GameConsole {
         // player collects coin
         if (level.getCoin() != null) {
             if (level.getPlayer().reaches(level.getCoin())) {
-                level.getPlayer().increaseMoney();
+                level.getPlayer().increaseMoney(level.getCoin().getValue());
                 level.setCoin(new Coin());
             }
         }

@@ -9,13 +9,10 @@ public class Player extends GameObject {
     private int kills = 0;
     private boolean hasMoved = false;
 
-
-
     public Player(int x, int y) {
         this.x = x;
         this.y = y;
     }
-
     
     public void takeDamage(float damage) {
         health -= damage;
@@ -41,7 +38,6 @@ public class Player extends GameObject {
                 tower.lift();
             }
         }
-
     }
 
     public void moveUp() {
@@ -72,8 +68,8 @@ public class Player extends GameObject {
         }
     }
 
-    public void increaseMoney() {
-        money++;
+    public void increaseMoney(int val) {
+        money+=val;
     }
 
     public int getMoney() {
