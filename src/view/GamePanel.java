@@ -404,6 +404,15 @@ public class GamePanel extends JPanel implements Runnable {
         g2d.drawString("PITRIFIED", this.getWidth() / 2 - 150, this.getHeight() / 2);
     }
 
+    public void diplayWinScreen(Graphics2D g2d){
+        g2d.setColor(Color.BLACK);
+        g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
+
+        g2d.setColor(Color.RED);
+        g2d.setFont(new Font("Consolas", Font.TRUETYPE_FONT, 50));
+        g2d.drawString("YOU WIN", this.getWidth() / 2 - 150, this.getHeight() / 2);
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -413,9 +422,12 @@ public class GamePanel extends JPanel implements Runnable {
             displayCredits(g2d);
             return;
         }
-
         if (GameConsole.getState() == GameState.GAMEOVER) {
             drawGameOver(g2d);
+            return;
+        }
+        if (GameConsole.getState() == GameState.WIN) {
+            diplayWinScreen(g2d);
             return;
         }
         if (GameConsole.getState() == GameState.TITLESCREEN) {

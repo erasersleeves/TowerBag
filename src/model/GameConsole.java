@@ -10,8 +10,9 @@ import model.world.Level;
 public class GameConsole {
     static Level level = Level.getInstance();
     static Menu menu = new Menu();
-    static private EnemyWave currentWave = level.getWave();
+    static EnemyWave currentWave = level.getWave();
     static GameState state = GameState.TITLESCREEN;
+    static int delay = 300;
 
     public static Menu getMenu() {
         return menu;
@@ -30,24 +31,22 @@ public class GameConsole {
         Iterator<Enemy> iterator = level.getWave().getEnemies().iterator();
         while (iterator.hasNext()) {
             Enemy enemy = iterator.next();
+            enemy.advance();
             if (enemy.isAtBase()) {
                 level.getPlayer().takeDamage(enemy.getDamage());
                 iterator.remove();
+                continue;
             }
-            enemy.advance();
-            Enemy target = null;
-            if (level.getTower().isInRange(enemy)) target = enemy;
-            if (target != null) {
-                level.getTower().fire(target);
-                if (target.getHealth() <= 0) {
+            if (level.getTower().isInRange(enemy)) {
+                level.getTower().fire(enemy);
+                if (enemy.getHealth() <= 0) {
                     // remove target
                     iterator.remove();
                     level.getPlayer().increaseKills();
                 }
-            }   
+            }
         }
             
-
 
         if (currentWave.noMoreEnemies()) {
             // All enemies in the current wave have been spawned.
@@ -163,7 +162,7 @@ public class GameConsole {
             // print();
             update();
             try {
-                Thread.sleep(200);
+                Thread.sleep(delay);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

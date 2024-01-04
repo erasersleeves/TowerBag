@@ -8,8 +8,8 @@ import model.GameConsole;
 import model.gameobjects.*;
 import model.world.*;
 
-import java.util.List;
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Main {
 
@@ -19,7 +19,7 @@ public class Main {
         Level demo = Level.getInstance("resources/arena.txt");
 
         //create ememy list
-        List<Enemy> enemies = new ArrayList<>();
+        Set<Enemy> enemies = new HashSet<>();
 
         // //create wave
         demo.setWave(new EnemyWave(enemies));

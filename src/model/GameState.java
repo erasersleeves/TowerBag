@@ -10,5 +10,6 @@ public enum GameState {
     TITLESCREEN,
     CREDITS,
     PITRIFIED,
-    GREEDY
+    GREEDY,
+    HERO
 }
