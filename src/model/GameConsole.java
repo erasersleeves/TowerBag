@@ -64,11 +64,11 @@ public class GameConsole {
         }
 
         // trigger altar
-        if (level.getPlayer().getMoney() >= 1) level.getAltar().trigger(true);
+        if (level.getPlayer().getMoney() >= level.getAltar().getFee()) level.getAltar().trigger(true);
         else level.getAltar().trigger(false);
 
         // player upgrades tower
-        if (!level.getTower().isLifted() && level.getTower().reaches(level.getAltar()) && level.getPlayer().getMoney() >= 1) {
+        if (!level.getTower().isLifted() && level.getTower().reaches(level.getAltar()) && level.getPlayer().getMoney() >= level.getAltar().getFee()) {
             state = GameState.INALTAR;
         }
 
@@ -78,7 +78,7 @@ public class GameConsole {
                 state = GameState.PITRIFIED;
                 return;
             }
-            if (level.getPlayer().getKills() == 0 && level.getPlayer().getMoney() > 3) {
+            if (level.getPlayer().getKills() == 0 && level.getPlayer().getMoney() > 5) {
                 state = GameState.GREEDY;
                 return;
             }
@@ -163,7 +163,7 @@ public class GameConsole {
             // print();
             update();
             try {
-                Thread.sleep(400);
+                Thread.sleep(200);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

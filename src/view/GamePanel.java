@@ -231,16 +231,17 @@ public class GamePanel extends JPanel implements Runnable {
 
         // Get the player's money
         int money = player.getMoney();
+        int fee = Level.getInstance().getAltar().getFee();
 
         // Calculate the position for the first heart
-        int coinX = this.getWidth() - coinImage.getWidth(null) - 40;
+        int coinX = this.getWidth() - coinImage.getWidth(null) - 60;
         int coinY = this.getHeight() - coinImage.getHeight(null) - 25;
 
         g2d.drawImage(coinImage, coinX, coinY, coinImage.getWidth(null), coinImage.getHeight(null), this);
 
-        g2d.setFont(new Font("Consolas", Font.TRUETYPE_FONT, 15));
+        g2d.setFont(new Font("Consolas", Font.BOLD, 12));
         g2d.setColor(Color.LIGHT_GRAY);
-        g2d.drawString(" x " + money, coinX + 15, coinY + 15);
+        g2d.drawString(" x " + money + "/" + fee, coinX + 15, coinY + 15);
 
     }
 

@@ -5,6 +5,7 @@ import model.world.Level;
 public class Altar extends GameObject {
     private boolean triggered = false;
     private int index;
+    private int fee = 3;
 
     public Altar() {
         //altar is a 3x3 block of 5s, spawn at the middle of the block
@@ -17,6 +18,10 @@ public class Altar extends GameObject {
             }
         }
         index = 1;
+    }
+
+    public int getFee() {
+        return fee;
     }
 
     public int getIndex() {
@@ -35,28 +40,24 @@ public class Altar extends GameObject {
         }
     }
 
-
     public void upgrade(){
         Player player = Level.getInstance().getPlayer();
         Tower tower = Level.getInstance().getTower();
         switch (index){
             case 0:
-                //increase tower's range
                 tower.increaseRange();
                 break;
             case 1:
-                //increase tower's damage
                 tower.increaseDamage();
                 break;
             case 2:
-                //decrease tower's cooldown
                 tower.decreaseCooldown();
                 break;
         }
-        player.decreaseMoney(3);
+        player.decreaseMoney(fee);
+        fee += 3;
         tower.lift();
     }
-
 
     public void trigger(boolean b){
         triggered = b;
