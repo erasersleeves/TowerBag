@@ -10,13 +10,12 @@ import model.world.Level;
 
 public class KeyHandler implements KeyListener {
     // key listener for player movement using WASD
-    Player player;
+    Player player = Level.getInstance().getPlayer();
     Tower tower = Level.getInstance().getTower();
     Altar altar = Level.getInstance().getAltar();
-    Menu  menu = GameConsole.getMenu();
+    Menu  menu = Menu.getInstance();
 
-    public KeyHandler(Player player) {
-        this.player = player;
+    public KeyHandler() {
     }
 
     @Override

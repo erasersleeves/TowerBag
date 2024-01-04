@@ -27,7 +27,7 @@ public class GamePanel extends JPanel implements Runnable {
     int scale = 1;
     private BufferedImage background;
 
-    KeyHandler keyH = new KeyHandler(player);
+    KeyHandler keyH = new KeyHandler();
     public static GamePanel instance = null;
 
     
@@ -318,13 +318,13 @@ public class GamePanel extends JPanel implements Runnable {
         String text3 = "POOIG 2023/2024 © All rights reserved";
 
         int text1Width = g2d.getFontMetrics().stringWidth(text1);
-        g2d.drawString(text1, (getWidth() - text1Width) / 2, getHeight() - 200);
+        g2d.drawString(text1, (getWidth() - text1Width) / 2, getHeight() - 250);
 
         int text2Width = g2d.getFontMetrics().stringWidth(text2);
-        g2d.drawString(text2, (getWidth() - text2Width) / 2, getHeight() - 150);
+        g2d.drawString(text2, (getWidth() - text2Width) / 2, getHeight() - 200);
 
         int text3Width = g2d.getFontMetrics().stringWidth(text3);
-        g2d.drawString(text3, (getWidth() - text3Width) / 2, getHeight() - 100);
+        g2d.drawString(text3, (getWidth() - text3Width) / 2, getHeight() - 150);
         BufferedImage splashImage = null;
 
         try {
@@ -357,7 +357,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void displayMenu(Graphics2D g2d) {
-        Menu menu = GameConsole.getMenu();
+        Menu menu = Menu.getInstance();
         BufferedImage menuImage = null;
         try {
             // Load the menu image
@@ -372,7 +372,7 @@ public class GamePanel extends JPanel implements Runnable {
         int screenHeight = this.getHeight();
         int rectSize = 32;
         int rectSpacing = 10;
-        int rectX = (screenWidth - (3 * rectSize + 2 * rectSpacing)) / 2;
+        int rectX = (screenWidth - (3 * rectSize + 2 * rectSpacing)) / 2 ;
         int rectY = (screenHeight) / 2;
 
         
@@ -413,6 +413,15 @@ public class GamePanel extends JPanel implements Runnable {
         g2d.drawString("YOU WIN", this.getWidth() / 2 - 150, this.getHeight() / 2);
     }
 
+    public void displayHeroScreen(Graphics2D g2d){
+        g2d.setColor(Color.BLACK);
+        g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
+
+        g2d.setColor(Color.RED);
+        g2d.setFont(new Font("Consolas", Font.TRUETYPE_FONT, 50));
+        g2d.drawString("BIG HERO", this.getWidth() / 2 - 150, this.getHeight() / 2);
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -420,6 +429,10 @@ public class GamePanel extends JPanel implements Runnable {
        
         if (GameConsole.getState() == GameState.CREDITS) {
             displayCredits(g2d);
+            return;
+        }
+        if (GameConsole.getState() == GameState.HERO) {
+            displayHeroScreen(g2d);
             return;
         }
         if (GameConsole.getState() == GameState.GAMEOVER) {

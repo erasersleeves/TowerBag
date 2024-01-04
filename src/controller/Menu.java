@@ -9,12 +9,20 @@ public class Menu {
     private int difficulty;
     private int scale;
     private int options = 2;
+    private static Menu instance = null;
 
-    public Menu() {
+    private Menu() {
         index = 0;
         mute = false;
         difficulty = 0;
         scale = 0;
+    }
+
+    public static Menu getInstance() {
+        if (instance == null) {
+            instance = new Menu();
+        }
+        return instance;
     }
 
     public int getIndex() {

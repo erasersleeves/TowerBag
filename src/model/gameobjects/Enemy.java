@@ -21,6 +21,10 @@ public abstract class Enemy extends GameObject {
             x++;
             return;
         } 
+        if (x>=Level.getInstance().getWidth()-1) {
+            x++;
+            return;
+        }
 
 
         if (y - 1 >= 0 && !goingDown && (arena[y - 1][x] == 1 || arena[y - 1][x] == 3)) {
@@ -63,7 +67,7 @@ public abstract class Enemy extends GameObject {
     
     public boolean isAtBase() {
         if (x < 0 ) return false;
-        if (x >= Level.getInstance().getWidth()-1) return true;
+        if (x > Level.getInstance().getWidth()-1) return true;
         return false;
     }
 

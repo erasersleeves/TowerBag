@@ -2,23 +2,17 @@ package model;
 
 import java.util.Iterator;
 
-import controller.Menu;
 import model.gameobjects.*;
 import model.world.EnemyWave;
 import model.world.Level;
 
 public class GameConsole {
     static Level level = Level.getInstance();
-    static Menu menu = new Menu();
     static EnemyWave currentWave = level.getWave();
     static GameState state = GameState.TITLESCREEN;
+    static boolean marathon = false;
+    static final int finalWave = 1;
     static int delay = 300;
-
-    public static Menu getMenu() {
-        return menu;
-    }
-
-
 
     public static void clearScreen() {
         System.out.print("\033[H\033[2J");
@@ -49,8 +43,14 @@ public class GameConsole {
             
 
         if (currentWave.noMoreEnemies()) {
-            // All enemies in the current wave have been spawned.
-            // Replace currentWave with a new wave...
+            if (marathon) {
+                currentWave.generateNextWave();
+            } 
+            else if (currentWave.getWaveNumber() == finalWave) {
+                if (level.getPlayer().getHealth() == 5 ) state = GameState.HERO;
+                else state = GameState.WIN;
+                return;
+            }
             currentWave.generateNextWave();
         }
 
