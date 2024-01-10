@@ -12,12 +12,15 @@ public class GameConsole {
     static Menu menu = new Menu();
     static private EnemyWave currentWave = level.getWave();
     static GameState state = GameState.TITLESCREEN;
-
+    static Sound sound = new Sound();
     public static Menu getMenu() {
         return menu;
     }
 
-
+    public static void playSound(int i){
+        sound.setFile(i);
+        sound.play();
+    }
 
     public static void clearScreen() {
         System.out.print("\033[H\033[2J");
@@ -39,6 +42,8 @@ public class GameConsole {
             if (level.getTower().isInRange(enemy)) target = enemy;
             if (target != null) {
                 level.getTower().fire(target);
+                if(level.getTower().isItTimeToFire());
+                GameConsole.playSound(5);
                 if (target.getHealth() <= 0) {
                     // remove target
                     iterator.remove();
@@ -59,6 +64,7 @@ public class GameConsole {
         if (level.getCoin() != null) {
             if (level.getPlayer().reaches(level.getCoin())) {
                 level.getPlayer().increaseMoney();
+                playSound(1);
                 level.setCoin(new Coin());
             }
         }
@@ -159,8 +165,8 @@ public class GameConsole {
 
     public static void loop() {
         while (true) {
-            // clearScreen();
-            // print();
+             clearScreen();
+             print();
             update();
             try {
                 Thread.sleep(400);
@@ -177,5 +183,6 @@ public class GameConsole {
     public static void setState(GameState state) {
         GameConsole.state = state;
     }
+
 
 }

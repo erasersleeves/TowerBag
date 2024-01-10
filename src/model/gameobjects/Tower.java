@@ -88,4 +88,8 @@ public class Tower extends GameObject{
             y = player.getY();
         }
     }
+
+    public boolean isItTimeToFire(){
+        return !isLifted && cooldownRemaining <= 0;
+    }
 }
