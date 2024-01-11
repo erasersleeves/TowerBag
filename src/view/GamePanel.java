@@ -75,11 +75,9 @@ public class GamePanel extends JPanel implements Runnable {
     public BufferedImage pickTile(int i){
         switch (i) {
             case 0:
-            case 4:
             case 5:
                 return pickRandomTile("resources/grass.png");
             case 1:
-            case 2:
             case 3:
                 return pickRandomTile("resources/path.png");
             default:
@@ -261,8 +259,8 @@ public class GamePanel extends JPanel implements Runnable {
 
         g2d.drawImage(flag, waveNumberX, waveNumberY - 20, flag.getWidth(), flag.getHeight(), this);
         g2d.setFont(new Font("Consolas", Font.BOLD, 12));
-        g2d.setColor(Color.RED);
-        g2d.drawString(String.valueOf(waveNumber), waveNumberX + 20, waveNumberY - 5);
+        g2d.setColor(Color.decode("#F21642"));
+        g2d.drawString(String.valueOf(waveNumber), waveNumberX + 20, waveNumberY - 8);
 
     }
 
@@ -284,8 +282,8 @@ public class GamePanel extends JPanel implements Runnable {
         //draw the counter
         g2d.drawImage(skullImage, skullX, skullY, skullImage.getWidth(), skullImage.getHeight(), this);
         g2d.setFont(new Font("Consolas", Font.BOLD, 12));
-        g2d.setColor(Color.BLACK);
-        g2d.drawString(" x" + kills, skullX + 15, skullY + 12);
+        g2d.setColor(Color.decode("#342E2E"));
+        g2d.drawString(" x" + kills, skullX + 12, skullY + 12);
     }
 
     public void drawUpgradeScreen(Graphics2D g2d) {
@@ -326,7 +324,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     /* Screens */
     public void displayCredits(Graphics2D g2d) {
-        g2d.setColor(Color.BLACK);
+        g2d.setColor(Color.decode("#72751B"));
         g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
         BufferedImage titleImage = null;
         try {
@@ -367,7 +365,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void displayTitleScreen(Graphics2D g2d){
-        g2d.setColor(Color.BLACK);
+        g2d.setColor(Color.decode("#72751B"));
         g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
         BufferedImage titleImage = null;
         try {
@@ -381,13 +379,13 @@ public class GamePanel extends JPanel implements Runnable {
 
         g2d.setColor(Color.WHITE);
         g2d.setFont(new Font("Consolas", Font.TRUETYPE_FONT, 15));
-        g2d.drawString("Press Space to Start", getWidth()/2 - 92, getHeight() - 50);
+        g2d.drawString("Press Space to Start", getWidth()/2 - 60, getHeight() - 50);
         
     }
 
     public void displayMenu(Graphics2D g2d) {
         Menu menu = Menu.getInstance();
-        g2d.setColor(Color.BLACK);
+        g2d.setColor(Color.decode("#72751B"));
         g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
         BufferedImage menuImage = null;
         try {
@@ -432,44 +430,74 @@ public class GamePanel extends JPanel implements Runnable {
         g2d.setColor(Color.BLACK);
         g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
 
-        g2d.setColor(Color.RED);
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File("resources/petrified.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        g2d.drawImage(img, this.getWidth() / 2 - 100, this.getHeight() / 2 - 150, 300, 300, this);
+        g2d.setColor(Color.decode("#435665"));
         g2d.setFont(new Font("Consolas", Font.TRUETYPE_FONT, 50));
-        g2d.drawString("PITRIFIED", this.getWidth() / 2 - 150, this.getHeight() / 2);
+        g2d.drawString("PITRIFIED", this.getWidth() / 2 - 110 , 40);
         g2d.setFont(new Font("Consolas", Font.TRUETYPE_FONT, 15));
         g2d.drawString("You were scared to death", this.getWidth() / 2 - 92, this.getHeight() - 50);
     }
 
     public void greedyEnding(Graphics2D g2d){
-        g2d.setColor(Color.BLACK);
+        g2d.setColor(Color.decode("#3E250F"));
         g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
 
-        g2d.setColor(Color.RED);
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File("resources/greed.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        g2d.drawImage(img, this.getWidth() / 2 - 150, this.getHeight() / 2 - 150, 300, 300, this);
+
+        g2d.setColor(Color.YELLOW);
         g2d.setFont(new Font("Consolas", Font.TRUETYPE_FONT, 50));
-        g2d.drawString("GREEDY", this.getWidth() / 2 - 150, this.getHeight() / 2);
+        g2d.drawString("GREEDY", this.getWidth() / 2 - 80 , 40);
         g2d.setFont(new Font("Consolas", Font.TRUETYPE_FONT, 15));
-        g2d.drawString("The village was invaded but you were blinded by money", this.getWidth() / 2 - 92, this.getHeight() - 50);
+        g2d.drawString("The village was invaded but you were blinded by money", this.getWidth() / 2 - 200, this.getHeight() - 35);
     }
 
     public void diplayWinScreen(Graphics2D g2d){
         g2d.setColor(Color.BLACK);
         g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
 
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File("resources/win.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        g2d.drawImage(img, this.getWidth() / 2 - 150, this.getHeight() / 2 - 150, 300, 300, this);        
+
         g2d.setColor(Color.WHITE);
         g2d.setFont(new Font("Consolas", Font.TRUETYPE_FONT, 50));
-        g2d.drawString("YOU WIN", this.getWidth() / 2 - 150, this.getHeight() / 2);
+        g2d.drawString("YOU WIN", this.getWidth() / 2 - 110 , 40);
         g2d.setFont(new Font("Consolas", Font.TRUETYPE_FONT, 15));
-        g2d.drawString("You prevented the mobs to invade the village", this.getWidth() / 2 - 92, this.getHeight() - 50);
+        g2d.drawString("You prevented the mobs to invade the village", this.getWidth() / 2 - 180, this.getHeight() - 30);
     }
 
     public void displayHeroScreen(Graphics2D g2d){
-        g2d.setColor(Color.BLACK);
+        g2d.setColor(Color.decode("#CBC8B0"));
         g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
 
-        g2d.setColor(Color.WHITE);
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File("resources/hero.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        g2d.drawImage(img, this.getWidth() / 2 - 310, this.getHeight() / 2 - 210, 620, 420, this);
+        g2d.setColor(Color.ORANGE);
         g2d.setFont(new Font("Consolas", Font.TRUETYPE_FONT, 50));
-        g2d.drawString("BIG HERO", this.getWidth() / 2 - 150, this.getHeight() / 2);
+        g2d.drawString("BIG HERO",  this.getWidth() / 2 - 80 , 40);
         g2d.setFont(new Font("Consolas", Font.TRUETYPE_FONT, 15));
-        g2d.drawString("You saved the village wihtout any victims", this.getWidth() / 2 - 92, this.getHeight() - 50);
+        g2d.drawString("You saved the village wihtout any victims", this.getWidth() / 2 - 200, this.getHeight() - 35);
         
     }
 

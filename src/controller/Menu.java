@@ -5,15 +5,11 @@ import model.GameState;
 
 public class Menu {
     private int index;
-    private boolean mute;
-    private int scale;
     private int options = 4;
     private static Menu instance = null;
 
     private Menu() {
         index = 0;
-        mute = false;
-        scale = 0;
     }
 
     public static Menu getInstance() {
