@@ -9,7 +9,6 @@ import model.gameobjects.*;
 import model.world.Level;
 
 public class KeyHandler implements KeyListener {
-    // key listener for player movement using WASD
     Player player = Level.getInstance().getPlayer();
     Tower tower = Level.getInstance().getTower();
     Altar altar = Level.getInstance().getAltar();
@@ -45,12 +44,15 @@ public class KeyHandler implements KeyListener {
         if (GameConsole.getState() == GameState.MENU) {
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_W:
+                case KeyEvent.VK_UP:
                     menu.moveUp();
                     break;
                 case KeyEvent.VK_S:
+                case KeyEvent.VK_DOWN:
                     menu.moveDown();
                     break;
                 case KeyEvent.VK_SPACE:
+                case KeyEvent.VK_ENTER:
                     menu.select();
                     break;
                 }
@@ -71,12 +73,15 @@ public class KeyHandler implements KeyListener {
         if (GameConsole.getState() == GameState.INALTAR) {
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_A:
+                case KeyEvent.VK_LEFT:
                     altar.decreaseIndex();
                     break;
                 case KeyEvent.VK_D:
+                case KeyEvent.VK_RIGHT:
                     altar.increaseIndex();
                     break;
                 case KeyEvent.VK_SPACE:
+                case KeyEvent.VK_ENTER:
                     altar.upgrade();
                     GameConsole.setState(GameState.INGAME);
                     break;
@@ -84,28 +89,24 @@ public class KeyHandler implements KeyListener {
             return;
         }
 
-        if (GameConsole.getState() == GameState.GAMEOVER) {
-            switch (e.getKeyCode()) {
-                case KeyEvent.VK_SPACE:
-                    break;
-                }
-            return;
-        }
-
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W:
+            case KeyEvent.VK_UP:
                 player.moveUp();
                 tower.followPlayer();
                 break;
             case KeyEvent.VK_S:
+            case KeyEvent.VK_DOWN:
                 player.moveDown();
                 tower.followPlayer();
                 break;
             case KeyEvent.VK_A:
+            case KeyEvent.VK_LEFT:
                 player.moveLeft();
                 tower.followPlayer();
                 break;
             case KeyEvent.VK_D:
+            case KeyEvent.VK_RIGHT:
                 player.moveRight();
                 tower.followPlayer();
                 break;

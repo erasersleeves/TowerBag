@@ -43,7 +43,7 @@ public class EnemyWave {
         int numberOfEnemies = waveNumber * 4 + 2;
         for (int i = 0; i < numberOfEnemies; i++) {
             Random random = new Random();
-            int spawn = random.nextInt(2) * 12; // spawn at top or bottom
+            int spawn = random.nextInt(2) * (Level.getInstance().getHeight()-1); // spawn at top or bottom
             Enemy enemy = random.nextInt() % 4 == 0 ? new Orc(-8*i, spawn) : new Bat(-8*i, spawn) ;
             enemies.add(enemy);
         }

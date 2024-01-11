@@ -36,6 +36,8 @@ public class Main {
         // altar creation
         demo.setAltar(new Altar());
 
+        // stats creation
+
         // GUI creation
         JFrame window = new JFrame("Tower Defense");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

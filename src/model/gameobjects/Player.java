@@ -2,6 +2,7 @@ package model.gameobjects;
 
 import model.world.Level;
 
+
 public class Player extends GameObject {
     private int health = 5;
     private int money = 0;

@@ -13,6 +13,7 @@ public class GameConsole {
     static boolean marathon = false;
     static final int finalWave = 5;
     static int delay = 500;
+    
 
     public static void toggleMarathon() {
         marathon = !marathon;

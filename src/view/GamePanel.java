@@ -58,9 +58,7 @@ public class GamePanel extends JPanel implements Runnable {
         gameThread.start();
     }
 
-    public void update() {
-    }
-
+    /* Helper Functions */
     public void drawBackground(Graphics2D g2d) {
         // Draw the background
        int[][] arena = Level.getInstance().getArena();
@@ -115,6 +113,7 @@ public class GamePanel extends JPanel implements Runnable {
     return null;
     }
 
+    /* GameObjects */
     public void drawCoin(Graphics2D g2d) {
         Coin coin = Level.getInstance().getCoin();
         if (coin != null) {
@@ -206,6 +205,8 @@ public class GamePanel extends JPanel implements Runnable {
         
     }
     
+
+    /* UI Elements */
     public void drawHealth(Graphics2D g2d) {
         // Load the heart image
         Image heartImage = new ImageIcon("resources/heart.png").getImage();
@@ -322,31 +323,17 @@ public class GamePanel extends JPanel implements Runnable {
         g2d.drawString("Cooldown", rectX + 2 * (rectSize + rectSpacing) - 5, rectY + rectSize + 20);
     }
 
-    public void greedyEnding(Graphics2D g2d){
-        g2d.setColor(Color.BLACK);
-        g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
 
-        g2d.setColor(Color.RED);
-        g2d.setFont(new Font("Consolas", Font.TRUETYPE_FONT, 50));
-        g2d.drawString("GREEDY", this.getWidth() / 2 - 150, this.getHeight() / 2);
-    }
-
-    public void drawGameOver(Graphics2D g2d) {
-        g2d.setColor(Color.BLACK);
-        g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
-
-        g2d.setColor(Color.RED);
-        g2d.setFont(new Font("Consolas", Font.TRUETYPE_FONT, 50));
-        g2d.drawString("GAME OVER", this.getWidth() / 2 - 150, this.getHeight() / 2);
-    }
-
+    /* Screens */
     public void displayCredits(Graphics2D g2d) {
+        g2d.setColor(Color.BLACK);
+        g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
         BufferedImage titleImage = null;
         try {
             // Load the splash screen image
             titleImage = ImageIO.read(new File("resources/title.png"));
             // Draw the image on the panel
-            g2d.drawImage(titleImage, 0, 0, titleImage.getWidth(), titleImage.getHeight(), null);
+            g2d.drawImage(titleImage, getWidth()/2 - titleImage.getWidth() /2, getHeight()/2-titleImage.getHeight()/2, titleImage.getWidth(), titleImage.getHeight(), this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -380,12 +367,14 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void displayTitleScreen(Graphics2D g2d){
+        g2d.setColor(Color.BLACK);
+        g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
         BufferedImage titleImage = null;
         try {
             // Load the splash screen image
             titleImage = ImageIO.read(new File("resources/title.png"));
             // Draw the image on the panel
-            g2d.drawImage(titleImage, 0, 0, titleImage.getWidth(), titleImage.getHeight(), this);
+            g2d.drawImage(titleImage, getWidth()/2 - titleImage.getWidth() /2, getHeight()/2-titleImage.getHeight()/2, titleImage.getWidth(), titleImage.getHeight(), this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -398,12 +387,14 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void displayMenu(Graphics2D g2d) {
         Menu menu = Menu.getInstance();
+        g2d.setColor(Color.BLACK);
+        g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
         BufferedImage menuImage = null;
         try {
             // Load the menu image
             menuImage = ImageIO.read(new File("resources/title.png"));
             // Draw the image on the panel
-            g2d.drawImage(menuImage, 0, 0, menuImage.getWidth(), menuImage.getHeight(), this);
+            g2d.drawImage(menuImage, getWidth()/2 - menuImage.getWidth() /2, getHeight()/2-menuImage.getHeight()/2, menuImage.getWidth(), menuImage.getHeight(), this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -444,24 +435,53 @@ public class GamePanel extends JPanel implements Runnable {
         g2d.setColor(Color.RED);
         g2d.setFont(new Font("Consolas", Font.TRUETYPE_FONT, 50));
         g2d.drawString("PITRIFIED", this.getWidth() / 2 - 150, this.getHeight() / 2);
+        g2d.setFont(new Font("Consolas", Font.TRUETYPE_FONT, 15));
+        g2d.drawString("You were scared to death", this.getWidth() / 2 - 92, this.getHeight() - 50);
+    }
+
+    public void greedyEnding(Graphics2D g2d){
+        g2d.setColor(Color.BLACK);
+        g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
+
+        g2d.setColor(Color.RED);
+        g2d.setFont(new Font("Consolas", Font.TRUETYPE_FONT, 50));
+        g2d.drawString("GREEDY", this.getWidth() / 2 - 150, this.getHeight() / 2);
+        g2d.setFont(new Font("Consolas", Font.TRUETYPE_FONT, 15));
+        g2d.drawString("The village was invaded but you were blinded by money", this.getWidth() / 2 - 92, this.getHeight() - 50);
     }
 
     public void diplayWinScreen(Graphics2D g2d){
         g2d.setColor(Color.BLACK);
         g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
 
-        g2d.setColor(Color.RED);
+        g2d.setColor(Color.WHITE);
         g2d.setFont(new Font("Consolas", Font.TRUETYPE_FONT, 50));
         g2d.drawString("YOU WIN", this.getWidth() / 2 - 150, this.getHeight() / 2);
+        g2d.setFont(new Font("Consolas", Font.TRUETYPE_FONT, 15));
+        g2d.drawString("You prevented the mobs to invade the village", this.getWidth() / 2 - 92, this.getHeight() - 50);
     }
 
     public void displayHeroScreen(Graphics2D g2d){
         g2d.setColor(Color.BLACK);
         g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
 
-        g2d.setColor(Color.RED);
+        g2d.setColor(Color.WHITE);
         g2d.setFont(new Font("Consolas", Font.TRUETYPE_FONT, 50));
         g2d.drawString("BIG HERO", this.getWidth() / 2 - 150, this.getHeight() / 2);
+        g2d.setFont(new Font("Consolas", Font.TRUETYPE_FONT, 15));
+        g2d.drawString("You saved the village wihtout any victims", this.getWidth() / 2 - 92, this.getHeight() - 50);
+        
+    }
+
+    public void drawGameOver(Graphics2D g2d) {
+        g2d.setColor(Color.BLACK);
+        g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
+
+        g2d.setColor(Color.RED);
+        g2d.setFont(new Font("Consolas", Font.TRUETYPE_FONT, 50));
+        g2d.drawString("GAME OVER", this.getWidth() / 2 - 150, this.getHeight() / 2);
+        g2d.setFont(new Font("Consolas", Font.TRUETYPE_FONT, 15));
+        g2d.drawString("Press Alt+f4 to try again", this.getWidth() / 2 - 92, this.getHeight() - 50);
     }
 
     @Override
@@ -524,7 +544,6 @@ public class GamePanel extends JPanel implements Runnable {
         double drawInterval = 1000000000.0 / FPS;
         double nextDrawTime = System.nanoTime() + drawInterval;
         while (gameThread != null) {
-            update();
             repaint();
             double delta = nextDrawTime - System.nanoTime();
             if (delta > 0) {
