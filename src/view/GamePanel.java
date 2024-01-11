@@ -155,16 +155,17 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void drawEnmey(Graphics2D g2d) {
-        BufferedImage img = null;
+        BufferedImage bat = null, orc= null;
         try {
-            img = ImageIO.read(new File("resources/bat.png"));
+            bat = ImageIO.read(new File("resources/bat.png"));
+            orc = ImageIO.read(new File("resources/orc.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
         Iterator<Enemy> iterator = Level.getInstance().getWave().getEnemies().iterator();
         while (iterator.hasNext()) {
             Enemy enemy = iterator.next();
-            g2d.drawImage(img, enemy.getX() * tileSize * scale, enemy.getY() * tileSize * scale,
+            g2d.drawImage((enemy instanceof Bat) ? bat : orc, enemy.getX() * tileSize * scale, enemy.getY() * tileSize * scale,
                     tileSize * scale, tileSize * scale, this);
         }
     }

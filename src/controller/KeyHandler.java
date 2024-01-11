@@ -51,7 +51,7 @@ public class KeyHandler implements KeyListener {
                     menu.moveDown();
                     break;
                 case KeyEvent.VK_SPACE:
-                    menu.mainSelect();
+                    menu.select();
                     break;
                 }
             return;

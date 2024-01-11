@@ -7,6 +7,7 @@ import java.util.HashSet;
 
 import model.gameobjects.Bat;
 import model.gameobjects.Enemy;
+import model.gameobjects.Orc;
 
 
 public class EnemyWave {
@@ -43,7 +44,8 @@ public class EnemyWave {
         for (int i = 0; i < numberOfEnemies; i++) {
             Random random = new Random();
             int spawn = random.nextInt(2) * 12; // spawn at top or bottom
-            enemies.add(new Bat(-8*i, spawn));
+            Enemy enemy = random.nextInt() % 4 == 0 ? new Orc(-8*i, spawn) : new Bat(-8*i, spawn) ;
+            enemies.add(enemy);
         }
         waveNumber++;
         countdown = 5;

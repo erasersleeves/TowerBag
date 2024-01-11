@@ -45,7 +45,7 @@ public class Menu {
         }
     }
 
-    public void mainSelect() {
+    public void select() {
         switch (index) {
             case 0:
                 GameConsole.setState(GameState.INGAME);
@@ -65,14 +65,6 @@ public class Menu {
             default:
                 break;
         }
-    }
-
-    public void newGameSelect(){
-
-    }
-
-    public void settingsSelect() {
-        
     }
 
 }
