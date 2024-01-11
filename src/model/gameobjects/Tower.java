@@ -1,6 +1,7 @@
 package model.gameobjects;
 import javax.imageio.ImageIO;
 
+import model.GameConsole;
 import model.world.Level;
 
 import java.awt.*;
@@ -38,6 +39,7 @@ public class Tower extends GameObject{
     public void fire(Enemy target) {
         if (!isLifted && cooldownRemaining <= 0) {
             target.takeDamage(damage);
+            GameConsole.playSound(5);
             cooldownRemaining = cooldown;
         }
         cooldownRemaining--;

@@ -42,8 +42,6 @@ public class GameConsole {
             if (level.getTower().isInRange(enemy)) target = enemy;
             if (target != null) {
                 level.getTower().fire(target);
-                if(level.getTower().isItTimeToFire());
-                GameConsole.playSound(5);
                 if (target.getHealth() <= 0) {
                     // remove target
                     iterator.remove();
