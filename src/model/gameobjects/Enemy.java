@@ -12,6 +12,10 @@ public abstract class Enemy extends GameObject {
     protected boolean goingUp = false;
     protected boolean goingDown = false;
 
+    protected enum Direction {
+        UP, DOWN, LEFT, RIGHT
+    }
+
 
     public void advance() {
 
@@ -30,11 +34,11 @@ public abstract class Enemy extends GameObject {
         if (y - 1 >= 0 && !goingDown && (arena[y - 1][x] == 1 || arena[y - 1][x] == 3)) {
             validDirections.add(Direction.UP);
         } 
-         if (x + 1 < arena[0].length && (arena[y][x + 1] == 1 || arena[y][x + 1] == 3)) {
+        if (x + 1 < arena[0].length && (arena[y][x + 1] == 1 || arena[y][x + 1] == 3)) {
             validDirections.add(Direction.RIGHT);
 
         } 
-         if (y + 1 < arena.length  && !goingUp && (arena[y + 1][x] == 1 || arena[y + 1][x] == 3)) {
+        if (y + 1 < arena.length  && !goingUp && (arena[y + 1][x] == 1 || arena[y + 1][x] == 3)) {
             validDirections.add(Direction.DOWN);
         } 
         if (validDirections.size() > 0) {

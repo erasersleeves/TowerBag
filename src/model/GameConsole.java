@@ -11,8 +11,8 @@ public class GameConsole {
     static EnemyWave currentWave = level.getWave();
     static GameState state = GameState.TITLESCREEN;
     static boolean marathon = false;
-    static final int finalWave = 1;
-    static int delay = 300;
+    static final int finalWave = 5;
+    static int delay = 500;
 
     public static void clearScreen() {
         System.out.print("\033[H\033[2J");
