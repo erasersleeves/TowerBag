@@ -1,34 +1,44 @@
 package main;
 
-import gameobjects.Bat;
-import gameobjects.Player;
-import gameobjects.Tower;
-import world.Level;
+import view.GamePanel;
 
 import javax.swing.*;
 
-public class Main {
-    public static void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
+import model.GameConsole;
+import model.gameobjects.*;
+import model.world.*;
 
-    public static void main(String[] args) {
+import java.util.HashSet;
+import java.util.Set;
+
+public class Main {
+
+
+    public static void main(String[] args)  {
         // level creation
         Level demo = Level.getInstance("resources/arena.txt");
 
+        //create ememy list
+        Set<Enemy> enemies = new HashSet<>();
+
+        // //create wave
+        demo.setWave(new EnemyWave(enemies));
         
-        // Create and add bats to the enemy array
-        demo.setEnemy(new Bat(0, 0));
-
-
         // tower creation
-        demo.setTower(new Tower(4, 4, 3, 1, 1));
+        demo.setTower(new Tower(15, 7));
 
         // player creation
+        demo.setPlayer(new Player(3, 7));
 
-        demo.setPlayer(new Player());
+        // coin creation
+        demo.setCoin(new Coin());
 
+        // altar creation
+        demo.setAltar(new Altar());
+
+        // stats creation
+
+        // GUI creation
         JFrame window = new JFrame("Tower Defense");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         GamePanel gp = GamePanel.getInstance();
@@ -38,20 +48,8 @@ public class Main {
         window.setVisible(true);
         gp.startGame();
 
-
-
-
         // game loop
-        while (true) {
-            clearScreen();
-            demo.printArena();
-            demo.getTower().fire();
-            if (demo.getEnemy() != null ) demo.getEnemy().advance();
-            try {
-                Thread.sleep(500); // pause for 2 seconds
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+        GameConsole.loop();
     }
+
 }
