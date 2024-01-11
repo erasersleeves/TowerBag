@@ -182,7 +182,6 @@ public class GamePanel extends JPanel implements Runnable {
 
     }
 
-
     public void drawTower(Graphics2D g2d) {
         Tower tower = Level.getInstance().getTower();
         BufferedImage img = null;
@@ -244,8 +243,48 @@ public class GamePanel extends JPanel implements Runnable {
 
         g2d.setFont(new Font("Consolas", Font.BOLD, 12));
         g2d.setColor(Color.LIGHT_GRAY);
-        g2d.drawString(" x" + money + "/" + fee, coinX + 15, coinY + 15);
+        g2d.drawString(" x" + money + "/" + fee, coinX + 15, coinY + 12);
 
+    }
+
+    public void drawWaveNumber(Graphics2D g2d) {
+        BufferedImage flag = null;
+        try {
+            flag = ImageIO.read(new File("resources/flag.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        int waveNumber = Level.getInstance().getWave().getWaveNumber();
+        int waveNumberX = this.getWidth() - flag.getWidth(null) - 60;
+        int waveNumberY = this.getHeight() - flag.getHeight(null) - 30;
+
+        g2d.drawImage(flag, waveNumberX, waveNumberY - 20, flag.getWidth(), flag.getHeight(), this);
+        g2d.setFont(new Font("Consolas", Font.BOLD, 12));
+        g2d.setColor(Color.RED);
+        g2d.drawString(String.valueOf(waveNumber), waveNumberX + 20, waveNumberY - 5);
+
+    }
+
+    public void drawKillCounter(Graphics2D g2d) {
+        // Load the skull image
+        BufferedImage skullImage = null;
+        try {
+            skullImage = ImageIO.read(new File("resources/skull.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        } 
+        // Get the player's kills
+        int kills = player.getKills();
+
+        // Calculate the position for the first heart
+        int skullX = this.getWidth() - skullImage.getWidth(null) - 30;
+        int skullY = this.getHeight() - skullImage.getHeight(null) - 50;
+
+        //draw the counter
+        g2d.drawImage(skullImage, skullX, skullY, skullImage.getWidth(), skullImage.getHeight(), this);
+        g2d.setFont(new Font("Consolas", Font.BOLD, 12));
+        g2d.setColor(Color.BLACK);
+        g2d.drawString(" x" + kills, skullX + 15, skullY + 12);
     }
 
     public void drawUpgradeScreen(Graphics2D g2d) {
@@ -473,6 +512,8 @@ public class GamePanel extends JPanel implements Runnable {
         drawTower(g2d);
         drawHealth(g2d);
         drawMoneyCounter(g2d);
+        drawWaveNumber(g2d);
+        drawKillCounter(g2d);
 
         if (GameConsole.getState() == GameState.INALTAR) drawUpgradeScreen(g2d);
     }

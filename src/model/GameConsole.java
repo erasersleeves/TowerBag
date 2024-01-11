@@ -130,7 +130,7 @@ public class GameConsole {
                 if (level.getWave() != null) {
                     for (Enemy enemy : level.getWave().getEnemies()) {
                         if (enemy.getX() == j && enemy.getY() == i) {
-                            System.out.print("E ");
+                            System.out.print(enemy instanceof Bat ? "B " : "O ");
                             elementFound = true;
                         }
                     }
@@ -165,13 +165,14 @@ public class GameConsole {
             }
             System.out.println();
         }
-        System.out.println("Kills : " + level.getPlayer().getKills() + " , wave : " + level.getWave().getWaveNumber() );
+        System.out.println("Health : " + level.getPlayer().getHealth() + " | Money : " + level.getPlayer().getMoney() + "/" + level.getAltar().getFee());
+        System.out.println("Wave : " + level.getWave().getWaveNumber()  + " | Kills : " + level.getPlayer().getKills());
     }
 
     public static void loop() {
         while (true) {
-            // clearScreen();
-            // print();
+            clearScreen();
+            print();
             update();
             try {
                 Thread.sleep(delay);
