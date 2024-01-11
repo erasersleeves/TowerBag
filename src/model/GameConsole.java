@@ -14,6 +14,18 @@ public class GameConsole {
     static final int finalWave = 5;
     static int delay = 500;
 
+    public static void toggleMarathon() {
+        marathon = !marathon;
+    }
+
+    public static void toggleSpeed() {
+        delay = (delay == 500) ? 250 : 500;
+    }
+
+    public static int getDelay() {
+        return delay;
+    }
+
     public static void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -175,6 +187,10 @@ public class GameConsole {
 
     public static void setState(GameState state) {
         GameConsole.state = state;
+    }
+
+    public static boolean getMarathon() {
+        return marathon;
     }
 
 }

@@ -373,7 +373,7 @@ public class GamePanel extends JPanel implements Runnable {
         int rectSize = 32;
         int rectSpacing = 10;
         int rectX = (screenWidth - (3 * rectSize + 2 * rectSpacing)) / 2 ;
-        int rectY = (screenHeight) / 2;
+        int rectY = (screenHeight) / 2 - rectSize - rectSpacing;
 
         
 
@@ -391,8 +391,10 @@ public class GamePanel extends JPanel implements Runnable {
         g2d.setColor(Color.WHITE);
         g2d.setFont(new Font("Consolas", Font.TRUETYPE_FONT, 15));
         g2d.drawString("New Game", rectX + 40, rectY + 20);
-        g2d.drawString("Credits", rectX + 40, rectY + 20 + rectSize + rectSpacing);
-        g2d.drawString("Exit", rectX + 40, rectY + 20 + 2 * (rectSize + rectSpacing));
+        g2d.drawString("Mode : " + (GameConsole.getMarathon() ? "Marathon!" : "Classic"), rectX + 40, rectY + 20 + rectSize + rectSpacing);
+        g2d.drawString("Speed : " + (GameConsole.getDelay() == 500 ? "Normal" : "Speedrun!"), rectX + 40, rectY + 20 + 2 * (rectSize + rectSpacing));
+        g2d.drawString("Credits", rectX + 40, rectY + 20 + 3 * (rectSize + rectSpacing));
+        g2d.drawString("Exit", rectX + 40, rectY + 20 + 4 * (rectSize + rectSpacing));
     }
 
     public void petrifiedEnding(Graphics2D g2d){

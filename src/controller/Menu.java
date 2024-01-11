@@ -6,15 +6,13 @@ import model.GameState;
 public class Menu {
     private int index;
     private boolean mute;
-    private int difficulty;
     private int scale;
-    private int options = 2;
+    private int options = 4;
     private static Menu instance = null;
 
     private Menu() {
         index = 0;
         mute = false;
-        difficulty = 0;
         scale = 0;
     }
 
@@ -53,9 +51,15 @@ public class Menu {
                 GameConsole.setState(GameState.INGAME);
                 break;
             case 1:
-                GameConsole.setState(GameState.CREDITS);
+                GameConsole.toggleMarathon();
                 break;
             case 2:
+                GameConsole.toggleSpeed();
+                break;
+            case 3:
+                GameConsole.setState(GameState.CREDITS);
+                break;
+            case 4:
                 System.exit(0);
                 break;
             default:
